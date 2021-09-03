@@ -1,4 +1,5 @@
 <script>
+	import Fullscreen from "./Fullscreen.svelte";
 	import { Router, Route, Link } from "svelte-navigator";
 import About from "./About.svelte";
 	import CardSelection from "./CardSelection.svelte";
@@ -8,27 +9,37 @@ import About from "./About.svelte";
 
 <!-- <svelte:component this={CardSelectionView}></svelte:component> -->
 
-<Router>
-	<header>
-	  <h1 align=CENTER>InCA BAT Mockup</h1>
-	</header>
-  
-	<div> 
-	  <Route path="/">
-		<Menu/>
-	  </Route>
-  
-	  <Route path="cardselection">
-		<CardSelection />
-	  </Route>
+<style>
+  h1 {
+    text-align: center;
+    font-size: 2rem;
+  }
+</style>
 
-	  <Route path="about">
-		  <About />
-	  </Route>
-  
-	  <!-- <PrivateRoute path="profile" let:location>
+<Router>
+<Fullscreen let:isFull>
+{#if isFull == false}
+	<header>
+	<h1 align=CENTER>InCA BAT Mockup</h1>
+	</header>{/if}
+
+	<div> 
+	<Route path="/">
+		<Menu/>
+	</Route>
+
+	<Route path="cardselection">
+		<CardSelection />
+	</Route>
+
+	<Route path="about">
+		<About />
+	</Route>
+
+	<!-- <PrivateRoute path="profile" let:location>
 		<h3>Welcome {$user.username}</h3>
 		<button on:click={handleLogout}>Logout</button>
-	  </PrivateRoute> -->
+	</PrivateRoute> -->
 	</div>
-  </Router>
+	</Fullscreen>
+</Router>
