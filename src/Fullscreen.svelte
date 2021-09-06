@@ -1,5 +1,4 @@
 <!-- Fullscreen.svelte -->
-
 <script>
   import { onMount } from "svelte";
 
@@ -67,11 +66,20 @@
   $: icon = isFull ? "fullscreen_exit" : "fullscreen";
 </script>
 
+<div class="fs" class:isFull bind:this={fsContainer}>
+  <slot {isFull} />
+  {#if fullscreenSupport}
+    <button on:click={fsToggle}>
+      <i class="material-icons md-36">{icon}</i>
+    </button>
+  {/if}
+</div>
+
 <style>
   .isFull {
     width: 100vw;
     height: 100vh;
-    display: flex;
+    /* display: flex; */
     align-items: center;
     justify-content: center;
     background-color: #fff;
@@ -83,12 +91,3 @@
     bottom: 20px;
   }
 </style>
-
-<div class="fs" class:isFull bind:this={fsContainer}>
-  <slot {isFull} />
-  {#if fullscreenSupport}
-    <button on:click={fsToggle}>
-      <i class="material-icons md-36">{icon}</i>
-    </button>
-  {/if}
-</div>

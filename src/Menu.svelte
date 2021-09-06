@@ -3,14 +3,19 @@
 </script>
 
 <div class="color">
-    <div class="buttonclass"><Link to="cardselection">Test</Link></div>
+    <div class="buttonclass">
+        <Link to="cardselection">Test</Link>
+    </div>
     <div class="buttonclass"><Link to="about">About</Link></div>
+    <div class="buttonclass"><Link to="settings">Settings</Link></div>
 </div>
 
 <div class="color">
-    In collaboration with <a href="https://parrotkindergarten.com/" target="_blank"
-        >Parrot Kindergarten</a
-    >, Inc. and <a href="https://inca.dcc.uchile.cl" target="_blank">InCA Labs</a>
+    In collaboration with <a
+        href="https://parrotkindergarten.com/"
+        target="_blank">Parrot Kindergarten</a
+    >, Inc. and
+    <a href="https://inca.dcc.uchile.cl" target="_blank">InCA Labs</a>
 </div>
 
 <style>
@@ -25,6 +30,6 @@
 
     .buttonclass {
         /* background-color: rgb(80, 75, 83); */
-        font-size: 10vw
+        font-size: 10vw;
     }
 </style>
