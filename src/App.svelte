@@ -3,6 +3,7 @@
 	import { Router, Route, Link } from "svelte-navigator";
 	import About from "./About.svelte";
 	import CardSelection from "./CardSelection.svelte";
+	import TestSelection from "./TestSelection.svelte";
 	// import CardSelectionView from "./CardSelection.svelte"
 	import Menu from "./Menu.svelte";
 	import Settings from "./Settings.svelte";
@@ -25,6 +26,10 @@
 
 			<Route path="cardselection">
 				<CardSelection />
+			</Route>
+
+			<Route path="testselection">
+				<TestSelection />
 			</Route>
 
 			<Route path="about">

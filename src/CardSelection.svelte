@@ -2,10 +2,15 @@
 	import { Link } from "svelte-navigator";
 	import Card from "./card.svelte";
 	import { tests } from "./tests.js";
-	import { nOfRepetitions } from "./stores.js";
+	import { nOfRepetitions, selectedTest } from "./stores.js";
+
+	let current_test_id;
+	selectedTest.subscribe((value) => {
+		current_test_id = value;
+	});
 	let w = 160;
 	let h = 160;
-	let current_test = tests[0];
+	let current_test = tests[current_test_id];
 	let correctSound = new Audio("sounds/yes.mp3");
 	let incorrectSound = new Audio("sounds/no.mp3");
 	let touchthedot = new Audio("sounds/cards/1.mp3");

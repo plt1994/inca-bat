@@ -4,7 +4,7 @@
 
 <div class="color">
     <div class="buttonclass">
-        <Link to="cardselection">Test</Link>
+        <Link to="testselection">Test</Link>
     </div>
     <div class="buttonclass"><Link to="about">About</Link></div>
     <div class="buttonclass"><Link to="settings">Settings</Link></div>
