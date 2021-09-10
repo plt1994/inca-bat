@@ -3,7 +3,7 @@
 	import Card from "./card.svelte";
 	import { tests } from "./tests.js";
 	import { nOfRepetitions, selectedTest } from "./stores.js";
-	let test_log = "Current test log Detail:\n";
+	let test_log = ["Current test log Detail:"];
 	let current_test_id;
 	selectedTest.subscribe((value) => {
 		current_test_id = value;
@@ -79,7 +79,9 @@
 		var ISODate = date + " " + time;
 		var current = n_of_correct + n_of_incorrect;
 		var options = cardsOnScreenStr;
-		test_log = `${test_log}[${ISODate}] [${current_test.name}] [${current}]/[${n_of_test_total}]: [Subject] chose [${chosen}] over [${options}] in a time of [${responseTime} s]\n`;
+		test_log.push(
+			`[${ISODate}] [${current_test.name}] [${current}]/[${n_of_test_total}]: [Subject] chose [${chosen}] over [${options}] in a time of [${responseTime} s]`
+		);
 	}
 
 	function select(chosenCard) {
@@ -142,7 +144,9 @@
 	{/if}
 	{#if done}
 		<div>
-			{test_log}
+			{#each test_log as log_i}
+				<p>{log_i}</p>
+			{/each}
 			correct: {n_of_correct}; incorrect: {n_of_incorrect}
 		</div>
 		<button on:click={() => reset_test()}>retry</button>
