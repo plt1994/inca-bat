@@ -2,7 +2,11 @@
 	import { Link } from "svelte-navigator";
 	import Card from "./card.svelte";
 	import { tests } from "./tests.js";
-	import { nOfRepetitions, selectedTest } from "./stores.js";
+	import {
+		nOfRepetitions,
+		selectedTest,
+		nOfCardsOnScreen,
+	} from "./stores.js";
 	let test_log = ["Current test log Detail:"];
 	let current_test_id;
 	selectedTest.subscribe((value) => {
@@ -17,7 +21,10 @@
 	let touchthedot = new Audio("sounds/cards/1.mp3");
 	let cardsOnScreen;
 	let cardsOnScreenStr;
-	let nOfCardsOnScreen = 2;
+	let localNOfCardsOnScreen; //subscribe this to a global value for settings
+	nOfCardsOnScreen.subscribe((value) => {
+		localNOfCardsOnScreen = value;
+	});
 	function shuffle(array) {
 		return array.sort(() => Math.random() - 0.5);
 	}
@@ -56,8 +63,9 @@
 		// Shuffle array
 		let shuffled = shuffle(otherCards);
 		// obtiene las primeras nOfCardsOnScreen-1 cartas entre las opciones incorrectas
-		cardsOnScreen = shuffled.slice(0, nOfCardsOnScreen - 1);
+		cardsOnScreen = shuffled.slice(0, localNOfCardsOnScreen - 1);
 		cardsOnScreen.push(correct_choice);
+		cardsOnScreen = shuffle(cardsOnScreen);
 		cardsOnScreenStr = String(cardsOnScreen.map((card) => card.cardName));
 	}
 	setCurrentCardsOnScreen();
@@ -120,6 +128,8 @@
 		n_of_correct = 0;
 		n_of_incorrect = 0;
 		done = false;
+		touchable = true;
+		setCurrentCardsOnScreen();
 	}
 	setTimeout(function () {
 		touchthedot.play();
@@ -132,15 +142,14 @@
 		<h1>
 			{correct_choice.msg}
 		</h1>
-		<table align="center">
-			<tr>
-				{#each cardsOnScreen as c}
-					<td on:click={() => select(c)}>
-						<Card n={c.n} width={w} height={h} />
-					</td>
-				{/each}
-			</tr>
-		</table>
+
+		<div class="space-around">
+			{#each cardsOnScreen as c}
+				<div on:click={() => select(c)}>
+					<Card n={c.n} width={w} height={h} />
+				</div>
+			{/each}
+		</div>
 	{/if}
 	{#if done}
 		<div>
@@ -153,3 +162,10 @@
 		<button><Link to="/">go back</Link></button>
 	{/if}
 </center>
+
+<style>
+	.space-around {
+		display: flex;
+		justify-content: space-around;
+	}
+</style>
