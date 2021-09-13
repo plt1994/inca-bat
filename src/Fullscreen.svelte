@@ -86,7 +86,8 @@
   }
   button {
     color: #000;
-    position: absolute;
+    background-color: rgb(255, 255, 255);
+    position: fixed;
     right: 20px;
     bottom: 20px;
   }
