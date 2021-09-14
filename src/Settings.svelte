@@ -1,11 +1,15 @@
 <script>
-    import { Link } from "svelte-navigator";
+    import { Link, navigate } from "svelte-navigator";
+    import SettingsOption from "./SettingsOption.svelte";
     import {
         nOfRepetitions,
         nOfCardsOnScreen,
         cardsSeparation,
         subjectName,
         loggingStyle,
+        timeHoldToExit,
+        showTitle,
+        showCardText,
     } from "./stores.js";
     const logStyleStr = {
         0: "Verbose (every selection)",
@@ -15,31 +19,50 @@
         localCardsOnScreen,
         localCardsSeparation,
         localSubjectName,
-        localLoggingStyle;
+        localLoggingStyle,
+        localTimeHoldExit,
+        localShowTitle,
+        localShowCardText;
     const options = {
         0: nOfRepetitions,
         1: nOfCardsOnScreen,
         2: cardsSeparation,
         3: subjectName,
         4: loggingStyle,
+        5: timeHoldToExit,
+        6: showTitle,
+        7: showCardText,
     };
-    function increment(option) {
+    function increment(option, max) {
         options[option].update((n) => {
+            if (n >= max) {
+                return max;
+            }
             return n + 1;
         });
     }
-    function decrement(option) {
+    function decrement(option, min) {
         options[option].update((n) => {
-            if (n < 2) {
-                return n;
+            if (n <= min) {
+                return min;
             }
             return n - 1;
         });
     }
+    function switchBoolValue(option) {
+        options[option].update((value) => {
+            return !value;
+        });
+    }
 
     nOfRepetitions.subscribe((value) => {
+        console.log("cambió el valor!");
         localNOfRepetitions = value;
+        if (localNOfRepetitions == 1) {
+            console.log("Solo una carta???");
+        }
     });
+
     nOfCardsOnScreen.subscribe((value) => {
         localCardsOnScreen = value;
     });
@@ -52,47 +75,81 @@
     loggingStyle.subscribe((value) => {
         localLoggingStyle = value;
     });
+    timeHoldToExit.subscribe((value) => {
+        localTimeHoldExit = value;
+    });
+    showTitle.subscribe((value) => {
+        localShowTitle = value;
+    });
+    showCardText.subscribe((value) => {
+        localShowCardText = value;
+    });
 </script>
 
-<div class="about color">
-    Number of repetitions
+<div class="color">
+    <SettingsOption name="Number of repetitions">
+        <div>
+            <button on:click={() => increment(0, 100)}> + </button>
+            <button> {localNOfRepetitions} </button>
+            <button on:click={() => decrement(0, 1)}> - </button>
+        </div>
+    </SettingsOption>
+    <SettingsOption name="Cards on screen">
+        <div>
+            <button on:click={() => increment(1, 5)}> + </button>
+            <button> {localCardsOnScreen} </button>
+            <button on:click={() => decrement(1, 1)}> - </button>
+        </div>
+    </SettingsOption>
+    <SettingsOption name="Cards separation">
+        <div>
+            <button on:click={() => increment(2, 10)}> + </button>
+            <button> {localCardsSeparation} </button>
+            <button on:click={() => decrement(2, 0)}> - </button>
+        </div>
+    </SettingsOption>
+    <SettingsOption name="Subject name">
+        <div>
+            <button> {localSubjectName} </button>
+        </div>
+    </SettingsOption>
 
-    <div>
-        <button on:click={() => increment(0)}> + </button>
-        <button> {localNOfRepetitions} </button>
-        <button on:click={() => decrement(0)}> - </button>
-    </div>
+    <SettingsOption name="Logging Style">
+        <div>
+            <button on:click={() => increment(4, 1)}> + </button>
+            <button> {logStyleStr[localLoggingStyle]} </button>
+            <button on:click={() => decrement(4, 0)}> - </button>
+        </div>
+    </SettingsOption>
 
-    Cards on screen
+    <SettingsOption name="Time exit holding time">
+        <div>
+            <button on:click={() => increment(5, 5)}> + </button>
+            <button> {localTimeHoldExit} seconds </button>
+            <button on:click={() => decrement(5, 0)}> - </button>
+        </div>
+    </SettingsOption>
 
-    <div>
-        <button on:click={() => increment(1)}> + </button>
-        <button> {localCardsOnScreen} </button>
-        <button on:click={() => decrement(1)}> - </button>
-    </div>
-
-    Cards separation
-
-    <div>
-        <button on:click={() => increment(2)}> + </button>
-        <button> {localCardsSeparation} </button>
-        <button on:click={() => decrement(2)}> - </button>
-    </div>
-
-    Subject name
-
-    <div>
-        <button> {localSubjectName} </button>
-    </div>
-
-    Logging Style
-
-    <div>
-        <button> {logStyleStr[localLoggingStyle]} </button>
-    </div>
+    <SettingsOption name="Show Title on Test Screen">
+        <div>
+            <button on:click={() => switchBoolValue(6)}>
+                {localShowTitle ? "Enabled" : "Disabled"}
+            </button>
+        </div>
+    </SettingsOption>
+    <SettingsOption name="Show Card Text on Test Screen">
+        <div>
+            <button on:click={() => switchBoolValue(7)}>
+                {localShowCardText ? "Enabled" : "Disabled"}
+            </button>
+        </div>
+    </SettingsOption>
 </div>
 
-<center><button class="color"><Link to="/">go back</Link></button></center>
+<center>
+    <button class="color"><Link to="/preview">test preview</Link> </button>
+    <button on:click={() => navigate(-1)}>Go Back</button>
+</center>
 
 <style>
     .color {
@@ -102,10 +159,5 @@
         margin-left: 10%;
         margin-right: 10%;
         margin-top: 5%;
-    }
-
-    .about {
-        margin-left: 10%;
-        margin-right: 10%;
     }
 </style>
