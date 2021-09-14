@@ -1,23 +1,28 @@
 <script>
     import { navigate } from "svelte-navigator";
+    import Header from "./Header.svelte";
 </script>
 
-<div class="about">
-    InCA Blind Associative Testing (BAT), is a project for ACI research based on
-    Jennifer Cunha method in Blind Testing, focused on Associative Tests for
-    small animals. This project purpose is for helping ACI researchers and also
-    to get Universidad de Chile Computing Engineering Undergraduate Degree.
-</div>
+<Header />
+<div>
+    <div class="about">
+        InCA Blind Associative Testing (BAT), is a project for ACI research
+        based on Jennifer Cunha method in Blind Testing, focused on Associative
+        Tests for small animals. This project purpose is for helping ACI
+        researchers and also to get Universidad de Chile Computing Engineering
+        Undergraduate Degree.
+    </div>
 
-<div class="color">
-    In collaboration with <a
-        href="https://parrotkindergarten.com/"
-        target="_blank">Parrot Kindergarten</a
-    >, Inc. and
-    <a href="https://inca.dcc.uchile.cl" target="_blank">InCA Labs</a>
-</div>
+    <div class="color">
+        In collaboration with <a
+            href="https://parrotkindergarten.com/"
+            target="_blank">Parrot Kindergarten</a
+        >, Inc. and
+        <a href="https://inca.dcc.uchile.cl" target="_blank">InCA Labs</a>
+    </div>
 
-<center><button on:click={() => navigate(-1)}>Go Back</button></center>
+    <center><button on:click={() => navigate(-1)}>Go Back</button></center>
+</div>
 
 <style>
     .color {
