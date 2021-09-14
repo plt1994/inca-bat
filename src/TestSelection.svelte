@@ -1,5 +1,5 @@
 <script>
-    import { Link } from "svelte-navigator";
+    import { Link, navigate } from "svelte-navigator";
     import TestDisplayer from "./TestDisplayer.svelte";
 </script>
 
@@ -12,7 +12,7 @@
     </div>
 </center>
 
-<center><button class="color"><Link to="/">go back</Link></button></center>
+<center><button on:click={() => navigate(-1)}>Go Back</button></center>
 
 <style>
     /* .color {
