@@ -1,12 +1,29 @@
 <script>
-	import { Link } from "svelte-navigator";
+	import { navigate } from "svelte-navigator";
 	import Card from "./card.svelte";
+	import Header from "./Header.svelte";
 	import { tests } from "./tests.js";
 	import {
 		nOfRepetitions,
 		selectedTest,
 		nOfCardsOnScreen,
+		cardsSeparation,
+		timeHoldToExit,
+		showCardText,
+		showTitle,
 	} from "./stores.js";
+	import { longpress } from "./longpress.js";
+	let duration;
+	let showHeader;
+	let localShowCardText;
+	showTitle.subscribe((value) => {
+		showHeader = value;
+	});
+	timeHoldToExit.subscribe((value) => {
+		duration = value * 1000;
+	});
+	showCardText.subscribe((value) => (localShowCardText = value));
+	export let preview = false;
 	let test_log = ["Current test log Detail:"];
 	let current_test_id;
 	selectedTest.subscribe((value) => {
@@ -34,6 +51,9 @@
 	nOfRepetitions.subscribe((value) => {
 		n_of_test_total = value;
 	});
+	if (preview) {
+		n_of_test_total = 1;
+	}
 	let done = false;
 	let touchable = false;
 	let cards = shuffle(current_test.cards);
@@ -130,25 +150,56 @@
 		done = false;
 		touchable = true;
 		setCurrentCardsOnScreen();
+		if (preview) {
+			test_log = ["Current test log Detail (preview):"];
+		}
 	}
 	setTimeout(function () {
 		touchthedot.play();
 		touchable = true;
 	}, 1500);
+	let separation;
+	cardsSeparation.subscribe((value) => {
+		separation = value;
+	});
+	function convertSeparation() {
+		separation = 27 - (27 * separation) / 10;
+	}
+	convertSeparation();
+	let textHoldToExit = "Hold to exit";
 </script>
+
+{#if showHeader}
+	<Header />
+{/if}
 
 <center>
 	{#if done == false && touchable}
-		<h1>
-			{correct_choice.msg}
-		</h1>
-
-		<div class="space-around">
-			{#each cardsOnScreen as c}
-				<div on:click={() => select(c)}>
-					<Card n={c.n} width={w} height={h} />
-				</div>
-			{/each}
+		<div style="--separation:{separation}%" class="center">
+			{#if localShowCardText}
+				<p class="no-margin">
+					{correct_choice.msg}
+				</p>
+			{/if}
+			<div class="space-around">
+				{#each cardsOnScreen as c}
+					<div on:click={() => select(c)}>
+						<Card n={c.n} width={w} height={h} />
+					</div>
+				{/each}
+			</div>
+		</div>
+	{/if}
+	{#if done == false}
+		<div>
+			<button
+				class="exit"
+				use:longpress={duration}
+				on:longpress={() => {
+					navigate(-1);
+				}}
+				>{textHoldToExit}
+			</button>
 		</div>
 	{/if}
 	{#if done}
@@ -159,13 +210,38 @@
 			correct: {n_of_correct}; incorrect: {n_of_incorrect}
 		</div>
 		<button on:click={() => reset_test()}>retry</button>
-		<button><Link to="/">go back</Link></button>
+		<button on:click={() => navigate(-1)}>Go Back</button>
 	{/if}
 </center>
 
 <style>
 	.space-around {
 		display: flex;
-		justify-content: space-around;
+		justify-content: space-between;
+		position: relative;
+		margin-left: var(--separation);
+		margin-right: var(--separation);
+	}
+
+	.exit {
+		color: #000;
+		background-color: var(--color-hold-to-exit);
+		position: fixed;
+		left: 20px;
+		bottom: 20px;
+	}
+
+	.center {
+		margin: 0;
+		position: absolute;
+		top: 50%;
+		left: 50%;
+		transform: translate(-50%, -50%);
+		width: 100%;
+	}
+
+	.no-margin {
+		margin: 0%;
+		font-size: large;
 	}
 </style>

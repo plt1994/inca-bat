@@ -4,17 +4,12 @@
 	import About from "./About.svelte";
 	import CardSelection from "./CardSelection.svelte";
 	import TestSelection from "./TestSelection.svelte";
-	// import CardSelectionView from "./CardSelection.svelte"
 	import Menu from "./Menu.svelte";
 	import Settings from "./Settings.svelte";
 </script>
 
 <Router>
 	<Fullscreen let:isFull>
-		<header>
-			<h1 align="CENTER">InCA BAT Mockup</h1>
-		</header>
-
 		<div>
 			<Route path="/">
 				<Menu />
@@ -26,6 +21,10 @@
 
 			<Route path="cardselection">
 				<CardSelection />
+			</Route>
+
+			<Route path="preview">
+				<CardSelection preview="true" />
 			</Route>
 
 			<Route path="testselection">
