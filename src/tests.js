@@ -1,9 +1,9 @@
 export const tests = [
 	{
-		id: 0,
+		id: 0, //test id
 		cards: [
 			{
-				n: 0,
+				n: 0, //card id
 				msg: "touch the white",
 				selectable: false,
 				cardName: "white card"

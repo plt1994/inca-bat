@@ -1,6 +1,7 @@
 <script>
 	import { navigate } from "svelte-navigator";
 	import Card from "./card.svelte";
+	import Card2 from "./Card2.svelte";
 	import Header from "./Header.svelte";
 	import { tests } from "./tests.js";
 	import {
@@ -167,6 +168,9 @@
 	}
 	convertSeparation();
 	let textHoldToExit = "Hold to exit";
+	function download() {
+		console.log("download log");
+	}
 </script>
 
 {#if showHeader}
@@ -184,7 +188,8 @@
 			<div class="space-around">
 				{#each cardsOnScreen as c}
 					<div on:click={() => select(c)}>
-						<Card n={c.n} width={w} height={h} />
+						<!-- <Card n={c.n} width={w} height={h} /> -->
+						<Card2 id={c.n} width={w} height={h} />
 					</div>
 				{/each}
 			</div>
@@ -209,15 +214,16 @@
 			{/each}
 			correct: {n_of_correct}; incorrect: {n_of_incorrect}
 		</div>
-		<button on:click={() => reset_test()}>retry</button>
+		<button on:click={() => reset_test()}>Retry</button>
 		<button on:click={() => navigate(-1)}>Go Back</button>
+		<button on:click={() => download()}>Download logs</button>
 	{/if}
 </center>
 
 <style>
 	.space-around {
 		display: flex;
-		justify-content: space-between;
+		justify-content: space-around;
 		position: relative;
 		margin-left: var(--separation);
 		margin-right: var(--separation);
