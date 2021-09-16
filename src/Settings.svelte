@@ -86,6 +86,7 @@
     });
 </script>
 
+<center><h1>Settings</h1></center>
 <div class="color">
     <SettingsOption name="Number of repetitions">
         <div>
@@ -147,7 +148,7 @@
 </div>
 
 <center>
-    <button class="color"><Link to="/preview">test preview</Link> </button>
+    <button class="color"><Link to="/preview">Test Preview</Link> </button>
     <button on:click={() => navigate(-1)}>Go Back</button>
 </center>
 
