@@ -8,6 +8,7 @@
 	import Settings from "./Settings.svelte";
 </script>
 
+<meta name="viewport" content="width=device-width, user-scalable=no" />
 <Router>
 	<Fullscreen let:isFull>
 		<div>
