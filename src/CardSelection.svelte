@@ -1,6 +1,5 @@
 <script>
 	import { navigate } from "svelte-navigator";
-	import Card from "./card.svelte";
 	import Card2 from "./Card2.svelte";
 	import Header from "./Header.svelte";
 	import { tests } from "./tests.js";
@@ -14,6 +13,8 @@
 		showTitle,
 	} from "./stores.js";
 	import { longpress } from "./longpress.js";
+	import { Sounds } from "./sounds";
+	let soundIsActive = true;
 	let duration;
 	let showHeader;
 	let localShowCardText;
@@ -35,9 +36,25 @@
 	let correctSound = new Audio("sounds/yes.mp3");
 	let incorrectSound = new Audio("sounds/no.mp3");
 	let touchthedot = new Audio("sounds/cards/1.mp3");
+	let testsSounds = {};
 	let cardsOnScreen;
 	let cardsOnScreenStr;
 	let localNOfCardsOnScreen; //subscribe this to a global value for settings
+	function loadTestSounds() {
+		let soundLocation;
+		let id;
+		current_test.cards.forEach((card) => {
+			id = card.n;
+			soundLocation = Sounds[id];
+			testsSounds[id] = new Audio(soundLocation);
+		});
+	}
+	if (soundIsActive) {
+		loadTestSounds();
+	}
+	function playCorrectChoiceSound(id) {
+		testsSounds[id].play();
+	}
 	nOfCardsOnScreen.subscribe((value) => {
 		localNOfCardsOnScreen = value;
 	});
@@ -135,9 +152,8 @@
 			//TODO: poner solo dos cartas y no todas
 			cards = shuffle(current_test.cards);
 			setCurrentCardsOnScreen();
-			if (correct_choice.n == 1) {
-				//voice with message
-				touchthedot.play();
+			if (soundIsActive) {
+				playCorrectChoiceSound(correct_choice.n);
 			}
 			touchable = true;
 			t0 = performance.now();
