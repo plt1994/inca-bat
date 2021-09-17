@@ -12,6 +12,8 @@
         showCardText,
         cardH,
         cardW,
+        silenceVoice,
+        currentFeedbackSound,
     } from "./stores.js";
     const logStyleStr = {
         0: "Verbose (every selection)",
@@ -26,7 +28,10 @@
         localShowTitle,
         localShowCardText,
         localCardH,
-        localCardW;
+        localCardW,
+        localSilenceFeedback,
+        localSilenceVoice,
+        localCurrentFeedbackSound;
     const options = {
         0: nOfRepetitions,
         1: nOfCardsOnScreen,
@@ -38,7 +43,10 @@
         7: showCardText,
         8: cardH,
         9: cardW,
+        10: silenceVoice,
+        11: currentFeedbackSound,
     };
+    import { feedbackSoundsOptions } from "./sounds";
     function increment(option, max, step = 1) {
         options[option].update((n) => {
             if (n >= max) {
@@ -95,6 +103,12 @@
     });
     cardW.subscribe((value) => {
         localCardW = value;
+    });
+    silenceVoice.subscribe((value) => {
+        localSilenceVoice = value;
+    });
+    currentFeedbackSound.subscribe((value) => {
+        localCurrentFeedbackSound = feedbackSoundsOptions[value].name;
     });
 </script>
 
@@ -169,6 +183,20 @@
             <button on:click={() => increment(9, 1000, 10)}> + </button>
             <button> {localCardW} pixels </button>
             <button on:click={() => decrement(9, 10, 10)}> - </button>
+        </div>
+    </SettingsOption>
+    <SettingsOption name="Card message (voice)">
+        <div>
+            <button on:click={() => switchBoolValue(10)}>
+                {!localSilenceVoice ? "Enabled" : "Disabled"}
+            </button>
+        </div>
+    </SettingsOption>
+    <SettingsOption name="Current Feedback (Sound)">
+        <div>
+            <button on:click={() => increment(11, 3, 1)}> + </button>
+            <button> {localCurrentFeedbackSound} </button>
+            <button on:click={() => decrement(11, 0, 1)}> - </button>
         </div>
     </SettingsOption>
 </div>

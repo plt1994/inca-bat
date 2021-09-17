@@ -11,13 +11,23 @@
 		timeHoldToExit,
 		showCardText,
 		showTitle,
+		silenceVoice,
+		currentFeedbackSound,
 	} from "./stores.js";
 	import { longpress } from "./longpress.js";
-	import { Sounds } from "./sounds";
+	import { Sounds, feedbackSounds, feedbackSoundsOptions } from "./sounds";
+	export let preview = false;
 	let soundIsActive = true;
 	let duration;
 	let showHeader;
 	let localShowCardText;
+	silenceVoice.subscribe((value) => {
+		soundIsActive = !value;
+	});
+	let localFeedbackSounds = [1, 2];
+	currentFeedbackSound.subscribe((value) => {
+		localFeedbackSounds = feedbackSoundsOptions[value].fbIds;
+	});
 	showTitle.subscribe((value) => {
 		showHeader = value;
 	});
@@ -25,7 +35,6 @@
 		duration = value * 1000;
 	});
 	showCardText.subscribe((value) => (localShowCardText = value));
-	export let preview = false;
 	let test_log = ["Current test log Detail:"];
 	let current_test_id;
 	selectedTest.subscribe((value) => {
@@ -33,9 +42,8 @@
 	});
 	let t0, t1;
 	let current_test = tests[current_test_id];
-	let correctSound = new Audio("sounds/yes.mp3");
-	let incorrectSound = new Audio("sounds/no.mp3");
-	let touchthedot = new Audio("sounds/cards/1.mp3");
+	let correctSound;
+	let incorrectSound;
 	let testsSounds = {};
 	let cardsOnScreen;
 	let cardsOnScreenStr;
@@ -49,9 +57,14 @@
 			testsSounds[id] = new Audio(soundLocation);
 		});
 	}
+	function loadFeedbackSounds() {
+		correctSound = new Audio(feedbackSounds[localFeedbackSounds[0]]);
+		incorrectSound = new Audio(feedbackSounds[localFeedbackSounds[1]]);
+	}
 	if (soundIsActive) {
 		loadTestSounds();
 	}
+	loadFeedbackSounds();
 	function playCorrectChoiceSound(id) {
 		testsSounds[id].play();
 	}
@@ -170,7 +183,9 @@
 		}
 	}
 	setTimeout(function () {
-		touchthedot.play();
+		if (soundIsActive) {
+			playCorrectChoiceSound(correct_choice.n);
+		}
 		touchable = true;
 	}, 1500);
 	let separation;
