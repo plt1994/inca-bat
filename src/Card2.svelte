@@ -5,15 +5,18 @@
     export let id = 0; //card id
     export let width = 160;
     export let height = 160;
+    export let preview = false;
     let nOfCards, settingsW, settingsH;
-    cardH.subscribe((value) => {
-        // settingsH = value;
-        height = value;
-    });
-    cardW.subscribe((value) => {
-        // settingsW = value;
-        width = value;
-    });
+    if (!preview) {
+        cardH.subscribe((value) => {
+            // settingsH = value;
+            height = value;
+        });
+        cardW.subscribe((value) => {
+            // settingsW = value;
+            width = value;
+        });
+    }
     nOfCardsOnScreen.subscribe((value) => {
         nOfCards = value;
     });
@@ -32,6 +35,6 @@
 
 <style>
     .bgcolorcard {
-        background-color: var(--bgcolor);
+        /* background-color: var(--bgcolor); */
     }
 </style>
