@@ -1,7 +1,7 @@
 <script>
     import { tests } from "./tests.js";
     import { selectedTest } from "./stores.js";
-    import Card from "./card.svelte";
+    import Card from "./Card2.svelte";
     let selected_test;
     selectedTest.subscribe((value) => {
         selected_test = value;
@@ -29,7 +29,7 @@
         {#each tests[selected_test_index].cards as card}
             <div>
                 <p>{card.cardName}</p>
-                <Card n={card.n} width={160} height={160} />
+                <Card id={card.n} width={100} height={100} preview="true" />
             </div>
         {/each}
     </div>
