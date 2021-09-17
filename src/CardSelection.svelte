@@ -261,8 +261,8 @@
 		color: #000;
 		background-color: var(--color-hold-to-exit);
 		position: fixed;
-		left: 20px;
-		bottom: 20px;
+		left: 10px;
+		bottom: 0px;
 	}
 
 	.center {

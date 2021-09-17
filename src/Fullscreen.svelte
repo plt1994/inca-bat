@@ -88,7 +88,7 @@
     color: #000;
     background-color: rgb(255, 255, 255);
     position: fixed;
-    right: 20px;
-    bottom: 20px;
+    right: 10px;
+    bottom: 0px;
   }
 </style>
