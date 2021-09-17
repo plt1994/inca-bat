@@ -10,6 +10,8 @@
         timeHoldToExit,
         showTitle,
         showCardText,
+        cardH,
+        cardW,
     } from "./stores.js";
     const logStyleStr = {
         0: "Verbose (every selection)",
@@ -22,7 +24,9 @@
         localLoggingStyle,
         localTimeHoldExit,
         localShowTitle,
-        localShowCardText;
+        localShowCardText,
+        localCardH,
+        localCardW;
     const options = {
         0: nOfRepetitions,
         1: nOfCardsOnScreen,
@@ -32,21 +36,23 @@
         5: timeHoldToExit,
         6: showTitle,
         7: showCardText,
+        8: cardH,
+        9: cardW,
     };
-    function increment(option, max) {
+    function increment(option, max, step = 1) {
         options[option].update((n) => {
             if (n >= max) {
                 return max;
             }
-            return n + 1;
+            return n + step;
         });
     }
-    function decrement(option, min) {
+    function decrement(option, min, step = 1) {
         options[option].update((n) => {
             if (n <= min) {
                 return min;
             }
-            return n - 1;
+            return n - step;
         });
     }
     function switchBoolValue(option) {
@@ -83,6 +89,12 @@
     });
     showCardText.subscribe((value) => {
         localShowCardText = value;
+    });
+    cardH.subscribe((value) => {
+        localCardH = value;
+    });
+    cardW.subscribe((value) => {
+        localCardW = value;
     });
 </script>
 
@@ -143,6 +155,20 @@
             <button on:click={() => switchBoolValue(7)}>
                 {localShowCardText ? "Enabled" : "Disabled"}
             </button>
+        </div>
+    </SettingsOption>
+    <SettingsOption name="Card height">
+        <div>
+            <button on:click={() => increment(8, 1000, 10)}> + </button>
+            <button> {localCardH} pixels </button>
+            <button on:click={() => decrement(8, 10, 10)}> - </button>
+        </div>
+    </SettingsOption>
+    <SettingsOption name="Card width">
+        <div>
+            <button on:click={() => increment(9, 1000, 10)}> + </button>
+            <button> {localCardW} pixels </button>
+            <button on:click={() => decrement(9, 10, 10)}> - </button>
         </div>
     </SettingsOption>
 </div>

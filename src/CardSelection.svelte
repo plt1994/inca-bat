@@ -31,8 +31,6 @@
 		current_test_id = value;
 	});
 	let t0, t1;
-	let w = 160;
-	let h = 160;
 	let current_test = tests[current_test_id];
 	let correctSound = new Audio("sounds/yes.mp3");
 	let incorrectSound = new Audio("sounds/no.mp3");
@@ -188,8 +186,7 @@
 			<div class="space-around">
 				{#each cardsOnScreen as c}
 					<div on:click={() => select(c)}>
-						<!-- <Card n={c.n} width={w} height={h} /> -->
-						<Card2 id={c.n} width={w} height={h} />
+						<Card2 id={c.n} />
 					</div>
 				{/each}
 			</div>
