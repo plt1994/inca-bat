@@ -15,6 +15,7 @@ const storedCurrentFeedbackSound = localStorage.currentFeedbackSound
 const storedSaveLog = localStorage.saveLog
 const storedCardH = localStorage.cardH
 const storedCardW = localStorage.cardW
+const storedLocalLog = localStorage.localLog
 
 export const nOfRepetitions = writable(Number(storedNOfRepetitions) || 5)
 export const selectedTest = writable(0)
@@ -25,12 +26,13 @@ export const nOfCardsOnScreen = writable(Number(storedNOfCardsOnScreen) || 2)
 export const timeHoldToExit = writable(Number(storedTimeHoldToExit) || 2)
 export const showTitle = writable(false)
 export const showCardText = writable(false)
-export const silenceVoice = writable(Boolean(storedSilenceVoice) || false)
+export const silenceVoice = writable(storedSilenceVoice === "true" || false)
 export const silenceFeedback = writable(Boolean(storedSilenceFeedback) || false)
 export const currentFeedbackSound = writable(Number(storedCurrentFeedbackSound) || 1)
 export const saveLog = writable(true)
 export const cardH = writable(Number(storedCardH) || 180)
 export const cardW = writable(Number(storedCardW) || 160)
+export const localLog = writable(JSON.parse(storedLocalLog || "{}") || {})
 
 subjectName.subscribe((value) => {
     localStorage.subjectName = value
@@ -57,6 +59,7 @@ timeHoldToExit.subscribe((value) => {
 })
 
 silenceVoice.subscribe((value) => {
+    console.log(value)
     localStorage.silenceVoice = value
 })
 
@@ -74,4 +77,8 @@ cardH.subscribe((value) => {
 
 cardW.subscribe((value) => {
     localStorage.cardW = value
+})
+
+localLog.subscribe((value) => {
+    localStorage.localLog = JSON.stringify(value)
 })
