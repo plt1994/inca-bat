@@ -1,6 +1,7 @@
 <script>
     import { Link, navigate } from "svelte-navigator";
     import SettingsOption from "./SettingsOption.svelte";
+    import { longpress } from "./longpress.js";
     import {
         nOfRepetitions,
         nOfCardsOnScreen,
@@ -14,6 +15,7 @@
         cardW,
         silenceVoice,
         currentFeedbackSound,
+        localLog,
     } from "./stores.js";
     const logStyleStr = {
         0: "Verbose (every selection)",
@@ -39,6 +41,11 @@
     function switchBoolValue(option) {
         option.update((value) => {
             return !value;
+        });
+    }
+    function cleanLogs() {
+        localLog.update(() => {
+            return {};
         });
     }
 </script>
@@ -134,6 +141,17 @@
             <button on:click={() => decrement(currentFeedbackSound, 0, 1)}>
                 -
             </button>
+        </div>
+    </SettingsOption>
+    <SettingsOption name="Tests Logs">
+        <div>
+            {#if Object.keys($localLog).length > 0}
+                <button use:longpress={3000} on:longpress={() => cleanLogs()}
+                    >Clean Logs (keep 3 seconds)
+                </button>
+            {:else}
+                <p>Logs are empty</p>
+            {/if}
         </div>
     </SettingsOption>
 </div>
