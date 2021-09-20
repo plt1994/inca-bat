@@ -3,6 +3,7 @@
     import TestDisplayer from "./TestDisplayer.svelte";
 </script>
 
+<center><h1>Select a Test to start</h1></center>
 <center>
     <div class="color">
         <TestDisplayer />
@@ -26,6 +27,6 @@
 
     .buttonclass {
         /* background-color: rgb(80, 75, 83); */
-        font-size: 10vw;
+        font-size: 7vw;
     }
 </style>
