@@ -137,7 +137,7 @@
     </SettingsOption>
     <SettingsOption name="Subject name">
         <div>
-            <button> {localSubjectName} </button>
+            <input bind:value={$subjectName} />
         </div>
     </SettingsOption>
 
@@ -214,5 +214,8 @@
         margin-left: 10%;
         margin-right: 10%;
         margin-top: 5%;
+    }
+    input {
+        text-align: center;
     }
 </style>
