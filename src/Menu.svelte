@@ -11,6 +11,7 @@
         </div>
         <div class="buttonclass"><Link to="about">About</Link></div>
         <div class="buttonclass"><Link to="settings">Settings</Link></div>
+        <div class="buttonclass"><Link to="logs">Local logs</Link></div>
     </div>
 
     <div class="color">

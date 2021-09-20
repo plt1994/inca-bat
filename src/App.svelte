@@ -6,6 +6,7 @@
 	import TestSelection from "./TestSelection.svelte";
 	import Menu from "./Menu.svelte";
 	import Settings from "./Settings.svelte";
+	import LogsView from "./LogsView.svelte";
 </script>
 
 <meta name="viewport" content="width=device-width, user-scalable=no" />
@@ -14,6 +15,10 @@
 		<div>
 			<Route path="/">
 				<Menu />
+			</Route>
+
+			<Route path="/logs">
+				<LogsView />
 			</Route>
 
 			<Route path="/settings">
