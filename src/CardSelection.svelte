@@ -13,6 +13,8 @@
 		showTitle,
 		silenceVoice,
 		currentFeedbackSound,
+		localLog,
+		subjectName,
 	} from "./stores.js";
 	import { longpress } from "./longpress.js";
 	import { Sounds, feedbackSounds, feedbackSoundsOptions } from "./sounds";
@@ -137,7 +139,7 @@
 		var current = n_of_correct + n_of_incorrect;
 		var options = cardsOnScreenStr;
 		test_log.push(
-			`[${ISODate}] [${current_test.name}] [${current}]/[${n_of_test_total}]: [Subject] chose [${chosen}] over [${options}] in a time of [${responseTime} s]`
+			`[${ISODate}] [${current_test.name}] [${current}]/[${n_of_test_total}]: [${$subjectName}] chose [${chosen}] over [${options}] in a time of [${responseTime} s]`
 		);
 	}
 
@@ -197,8 +199,17 @@
 	}
 	convertSeparation();
 	let textHoldToExit = "Hold to exit";
-	function download() {
-		console.log("download log");
+	function saveLocalLog(button) {
+		let k = Object.keys($localLog).length;
+		let newLocalLog = $localLog;
+		newLocalLog[k] = test_log;
+		newLocalLog[
+			k
+		][0] = `Summary: correct: ${n_of_correct}; incorrect: ${n_of_incorrect}`;
+		localLog.update(() => {
+			return newLocalLog;
+		});
+		alert(`test saved as Test #${k}`);
 	}
 </script>
 
@@ -244,7 +255,7 @@
 		</div>
 		<button on:click={() => reset_test()}>Retry</button>
 		<button on:click={() => navigate(-1)}>Go Back</button>
-		<button on:click={() => download()}>Download logs</button>
+		<button on:click={() => saveLocalLog()}>Save logs</button>
 	{/if}
 </center>
 
