@@ -54,7 +54,7 @@ export const tests = [
 					mode: "simple",
 					n: 2
 				},
-				soundId: 1
+				soundId: 2
 			}
 		],
 		name: "touch the dot demo 2"

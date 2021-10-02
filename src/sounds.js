@@ -1,7 +1,11 @@
 export const Sounds = {
     0: null,
     1: "sounds/cards/1.mp3",
-
+    2: "sounds/cards/2.mp3",
+    3: "sounds/cards/3.mp3",
+    4: "sounds/cards/4.mp3",
+    5: "sounds/cards/5.mp3",
+    6: "sounds/cards/6.mp3",
 };
 
 export const feedbackSounds = {
