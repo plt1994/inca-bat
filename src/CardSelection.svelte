@@ -54,9 +54,9 @@
 		let soundLocation;
 		let id;
 		current_test.cards.forEach((card) => {
-			id = card.n;
+			id = card.soundId;
 			soundLocation = Sounds[id];
-			testsSounds[id] = new Audio(soundLocation);
+			testsSounds[card.n] = new Audio(soundLocation);
 		});
 	}
 	function loadFeedbackSounds() {

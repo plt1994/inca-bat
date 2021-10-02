@@ -7,14 +7,16 @@ export const tests = [
 				msg: "touch the white",
 				selectable: false,
 				cardName: "white card",
-				cardType: "imageCard"
+				cardType: "imageCard",
+				soundId: 0
 			},
 			{
 				n: 1,
 				msg: "touch the dot",
 				selectable: true,
 				cardName: "dot card",
-				cardType: "imageCard"
+				cardType: "imageCard",
+				soundId: 1
 			}
 		],
 		name: "touch the dot demo"
@@ -27,10 +29,11 @@ export const tests = [
 				msg: "touch the white",
 				selectable: false,
 				cardName: "white card",
-				cardType: "imageCard"
+				cardType: "imageCard",
+				soundId: 0
 			},
 			{
-				n: 1,
+				n: 2,
 				msg: "touch the number 1",
 				selectable: true,
 				cardName: "dot card",
@@ -38,10 +41,11 @@ export const tests = [
 				details: {
 					mode: "simple",
 					n: 1
-				}
+				},
+				soundId: 1
 			},
 			{
-				n: 2,
+				n: 3,
 				msg: "touch the number 2",
 				selectable: true,
 				cardName: "2 dots card",
@@ -49,7 +53,8 @@ export const tests = [
 				details: {
 					mode: "simple",
 					n: 2
-				}
+				},
+				soundId: 1
 			}
 		],
 		name: "touch the dot demo 2"

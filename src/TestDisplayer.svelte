@@ -3,7 +3,9 @@
     import { selectedTest } from "./stores.js";
     import Card2 from "./Card2.svelte";
     import Card1 from "./Card1.svelte";
+    import { Sounds } from "./sounds";
     let selected_test;
+    let sounds = {};
     selectedTest.subscribe((value) => {
         selected_test = value;
     });
@@ -11,6 +13,17 @@
     let selected_test_index = selected_test;
     function selectTestIndex() {
         selectedTest.update(() => selected_test_index);
+    }
+    function playSound(card) {
+        console.log(sounds);
+        if (!sounds[card.n]) {
+            let soundLocation = Sounds[card.soundId];
+            if (!soundLocation) {
+                return;
+            }
+            sounds[card.n] = new Audio(soundLocation);
+        }
+        sounds[card.n].play();
     }
 </script>
 
@@ -29,11 +42,11 @@
         <p>Test cards:</p>
         <div class="cards-preview">
             {#each tests[selected_test_index].cards as card}
-                <div class="card-preview">
+                <div class="card-preview" on:click={() => playSound(card)}>
                     <p>{card.cardName}</p>
                     {#if card.cardType == "diceCard"}
                         <Card1
-                            id={card.n}
+                            id={card.details.n}
                             width={100}
                             height={100}
                             preview="true"
