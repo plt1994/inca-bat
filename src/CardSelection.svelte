@@ -1,6 +1,6 @@
 <script>
 	import { navigate } from "svelte-navigator";
-	import Card2 from "./Card2.svelte";
+	import Card from "./Card.svelte";
 	import Header from "./Header.svelte";
 	import { tests } from "./tests.js";
 	import {
@@ -228,7 +228,7 @@
 			<div class="space-around">
 				{#each cardsOnScreen as c}
 					<div on:click={() => select(c)}>
-						<Card2 id={c.n} />
+						<Card cardObject={c} />
 					</div>
 				{/each}
 			</div>
