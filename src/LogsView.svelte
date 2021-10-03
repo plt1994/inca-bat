@@ -1,6 +1,5 @@
 <script>
     import { navigate } from "svelte-navigator";
-    import Header from "./Header.svelte";
     import { localLog } from "./stores";
 </script>
 
