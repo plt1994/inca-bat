@@ -15,6 +15,7 @@
 		currentFeedbackSound,
 		localLog,
 		subjectName,
+		learnerMode,
 	} from "./stores.js";
 	import { longpress } from "./longpress.js";
 	import { Sounds, feedbackSounds, feedbackSoundsOptions } from "./sounds";
@@ -174,22 +175,6 @@
 			t0 = performance.now();
 		}, 1500);
 	}
-	function reset_test() {
-		n_of_correct = 0;
-		n_of_incorrect = 0;
-		done = false;
-		touchable = true;
-		setCurrentCardsOnScreen();
-		if (preview) {
-			test_log = ["Current test log Detail (preview):"];
-		}
-	}
-	setTimeout(function () {
-		if (soundIsActive) {
-			playCorrectChoiceSound(correct_choice.n);
-		}
-		touchable = true;
-	}, 1500);
 	let separation;
 	cardsSeparation.subscribe((value) => {
 		separation = value;
@@ -211,53 +196,84 @@
 		});
 		alert(`test saved as Test #${k}`);
 	}
+	function initTest() {
+		setTimeout(function () {
+			if (soundIsActive) {
+				playCorrectChoiceSound(correct_choice.n);
+			}
+			touchable = true;
+		}, 1500);
+	}
+	function reset_test() {
+		initTest();
+		n_of_correct = 0;
+		n_of_incorrect = 0;
+		done = false;
+		touchable = true;
+		setCurrentCardsOnScreen();
+		if (preview) {
+			test_log = ["Current test log Detail (preview):"];
+		}
+	}
+	function goBack() {
+		navigate(-1);
+		learnerMode.update(() => {
+			return false;
+		});
+	}
 </script>
 
 {#if showHeader}
 	<Header />
 {/if}
 
-<center>
-	{#if done == false && touchable}
-		<div style="--separation:{separation}%" class="center">
-			{#if localShowCardText}
-				<p class="no-margin">
-					{correct_choice.msg}
-				</p>
-			{/if}
-			<div class="space-around">
-				{#each cardsOnScreen as c}
-					<div on:click={() => select(c)}>
-						<Card cardObject={c} />
-					</div>
-				{/each}
+{#if $learnerMode}
+	<center on:load={initTest()}>
+		{#if done == false && touchable}
+			<div style="--separation:{separation}%" class="center">
+				{#if localShowCardText}
+					<p class="no-margin">
+						{correct_choice.msg}
+					</p>
+				{/if}
+				<div class="space-around">
+					{#each cardsOnScreen as c}
+						<div on:click={() => select(c)}>
+							<Card cardObject={c} />
+						</div>
+					{/each}
+				</div>
 			</div>
-		</div>
-	{/if}
-	{#if done == false}
-		<div>
-			<button
-				class="exit"
-				use:longpress={duration}
-				on:longpress={() => {
-					navigate(-1);
-				}}
-				>{textHoldToExit}
-			</button>
-		</div>
-	{/if}
-	{#if done}
-		<div>
-			{#each test_log as log_i}
-				<p>{log_i}</p>
-			{/each}
-			correct: {n_of_correct}; incorrect: {n_of_incorrect}
-		</div>
-		<button on:click={() => reset_test()}>Retry</button>
-		<button on:click={() => navigate(-1)}>Go Back</button>
-		<button on:click={() => saveLocalLog()}>Save logs</button>
-	{/if}
-</center>
+		{/if}
+		{#if done == false}
+			<div>
+				<button
+					class="exit"
+					use:longpress={duration}
+					on:longpress={() => goBack()}
+					>{textHoldToExit}
+				</button>
+			</div>
+		{/if}
+		{#if done}
+			<div class="center">
+				<!-- {#each test_log as log_i}
+					<p>{log_i}</p>
+				{/each} -->
+				<div>
+					<button class="play-again" on:click={() => reset_test()}
+						>PLAY AGAIN?</button
+					>
+				</div>
+				correct: {n_of_correct}; incorrect: {n_of_incorrect}
+				<div>
+					<button on:click={() => goBack()}>Exit test</button>
+					<button on:click={() => saveLocalLog()}>Save logs</button>
+				</div>
+			</div>
+		{/if}
+	</center>
+{/if}
 
 <style>
 	.space-around {
@@ -288,5 +304,11 @@
 	.no-margin {
 		margin: 0%;
 		font-size: large;
+	}
+
+	.play-again {
+		border-radius: 5px;
+		width: 50vh;
+		height: 20vh;
 	}
 </style>

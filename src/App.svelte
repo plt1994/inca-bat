@@ -11,48 +11,33 @@
 
 <meta name="viewport" content="width=device-width, user-scalable=no" />
 <Router>
-	<Fullscreen let:isFull>
-		<div>
-			<Route path="/">
-				<Menu />
-			</Route>
+	<div>
+		<Route path="/">
+			<Menu />
+		</Route>
 
-			<Route path="/logs">
-				<LogsView />
-			</Route>
+		<Route path="/logs">
+			<LogsView />
+		</Route>
 
-			<Route path="/settings">
-				<Settings />
-			</Route>
+		<Route path="/settings">
+			<Settings />
+		</Route>
 
-			<Route path="cardselection">
-				<CardSelection />
-			</Route>
+		<Route path="cardselection">
+			<Fullscreen let:isFull><CardSelection /></Fullscreen>
+		</Route>
 
-			<Route path="preview">
-				<CardSelection preview="true" />
-			</Route>
+		<Route path="preview">
+			<CardSelection preview="true" />
+		</Route>
 
-			<Route path="testselection">
-				<TestSelection />
-			</Route>
+		<Route path="testselection">
+			<TestSelection />
+		</Route>
 
-			<Route path="about">
-				<About />
-			</Route>
-
-			<!-- <PrivateRoute path="profile" let:location>
-		<h3>Welcome {$user.username}</h3>
-		<button on:click={handleLogout}>Logout</button>
-	</PrivateRoute> -->
-		</div>
-	</Fullscreen>
+		<Route path="about">
+			<About />
+		</Route>
+	</div>
 </Router>
-
-<!-- <svelte:component this={CardSelectionView}></svelte:component> -->
-<style>
-	h1 {
-		text-align: center;
-		font-size: 2rem;
-	}
-</style>

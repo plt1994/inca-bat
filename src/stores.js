@@ -33,6 +33,7 @@ export const saveLog = writable(true)
 export const cardH = writable(Number(storedCardH) || 180)
 export const cardW = writable(Number(storedCardW) || 160)
 export const localLog = writable(JSON.parse(storedLocalLog || "{}") || {})
+export const learnerMode = writable(false)
 
 subjectName.subscribe((value) => {
     localStorage.subjectName = value
@@ -82,3 +83,7 @@ cardW.subscribe((value) => {
 localLog.subscribe((value) => {
     localStorage.localLog = JSON.stringify(value)
 })
+
+
+//agregar los tests las imagenes y los sonidos aqui, 
+//asi se puede extender esto para que los usuarios agreguen sus propios tests

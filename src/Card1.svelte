@@ -1,7 +1,7 @@
 <!-- draws a simple card with a circle inside or not -->
 <script>
     export let id = 1;
-    export let mode = "dot"; // simpleDice, fancyDice
+    // export let mode = "dot"; // simpleDice, fancyDice
     import { cardH, cardW } from "./stores";
     import Circle from "./Circle.svelte";
     export let base_color_face = "white";
