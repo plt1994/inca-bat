@@ -1,5 +1,5 @@
 <script>
-    import { navigate } from "svelte-navigator";
+    import { moveToPage } from "./navigator";
     import Header from "./Header.svelte";
 </script>
 
@@ -21,7 +21,8 @@
         <a href="https://inca.dcc.uchile.cl" target="_blank">InCA Labs</a>
     </div>
 
-    <center><button on:click={() => navigate(-1)}>Go Back</button></center>
+    <center><button on:click={() => moveToPage("menu")}>Go Back</button></center
+    >
 </div>
 
 <style>

@@ -1,5 +1,5 @@
 <script>
-    import { Link, navigate } from "svelte-navigator";
+    import Link from "./Link.svelte";
     import SettingsOption from "./SettingsOption.svelte";
     import { longpress } from "./longpress.js";
     import {
@@ -157,8 +157,8 @@
 </div>
 
 <center>
-    <button class="color"><Link to="/preview">Test Preview</Link> </button>
-    <button on:click={() => navigate(-1)}>Go Back</button>
+    <button class="color"><Link to="preview">Test Preview</Link> </button>
+    <button><Link to="menu">Go Back</Link> </button>
 </center>
 
 <style>

@@ -1,43 +1,31 @@
 <script>
 	import Fullscreen from "./Fullscreen.svelte";
-	import { Router, Route, Link } from "svelte-navigator";
 	import About from "./About.svelte";
 	import CardSelection from "./CardSelection.svelte";
 	import TestSelection from "./TestSelection.svelte";
 	import Menu from "./Menu.svelte";
 	import Settings from "./Settings.svelte";
 	import LogsView from "./LogsView.svelte";
+	import { page } from "./stores";
 </script>
 
 <meta name="viewport" content="width=device-width, user-scalable=no" />
-<Router>
-	<div>
-		<Route path="/">
-			<Menu />
-		</Route>
-
-		<Route path="/logs">
-			<LogsView />
-		</Route>
-
-		<Route path="/settings">
-			<Settings />
-		</Route>
-
-		<Route path="cardselection">
-			<Fullscreen let:isFull><CardSelection /></Fullscreen>
-		</Route>
-
-		<Route path="preview">
-			<CardSelection preview="true" />
-		</Route>
-
-		<Route path="testselection">
-			<TestSelection />
-		</Route>
-
-		<Route path="about">
-			<About />
-		</Route>
-	</div>
-</Router>
+<div>
+	{#if $page == "menu"}
+		<Menu />
+	{:else if $page == "logs_view"}
+		<LogsView />
+	{:else if $page == "settings"}
+		<Settings />
+	{:else if $page == "card_selection"}
+		<Fullscreen let:isFull><CardSelection /></Fullscreen>
+	{:else if $page == "preview"}
+		<Fullscreen let:isFull><CardSelection preview={true} /></Fullscreen>
+	{:else if $page == "test_selection"}
+		<TestSelection />
+	{:else if $page == "about"}
+		<About />
+	{:else}
+		<div><p>404: not found</p></div>
+	{/if}
+</div>

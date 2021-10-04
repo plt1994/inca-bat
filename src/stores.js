@@ -34,6 +34,7 @@ export const cardH = writable(Number(storedCardH) || 180)
 export const cardW = writable(Number(storedCardW) || 160)
 export const localLog = writable(JSON.parse(storedLocalLog || "{}") || {})
 export const learnerMode = writable(false)
+export const page = writable("menu")
 
 subjectName.subscribe((value) => {
     localStorage.subjectName = value

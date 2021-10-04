@@ -1,5 +1,4 @@
 <script>
-	import { navigate } from "svelte-navigator";
 	import Card from "./Card.svelte";
 	import Header from "./Header.svelte";
 	import { tests } from "./tests.js";
@@ -16,7 +15,9 @@
 		localLog,
 		subjectName,
 		learnerMode,
+		page,
 	} from "./stores.js";
+	import { moveToPage } from "./navigator";
 	import { longpress } from "./longpress.js";
 	import { Sounds, feedbackSounds, feedbackSoundsOptions } from "./sounds";
 	export let preview = false;
@@ -216,10 +217,14 @@
 		}
 	}
 	function goBack() {
-		navigate(-1);
 		learnerMode.update(() => {
 			return false;
 		});
+		if (preview) {
+			moveToPage("settings");
+			return;
+		}
+		moveToPage("test_selection");
 	}
 </script>
 
@@ -267,7 +272,7 @@
 				</div>
 				correct: {n_of_correct}; incorrect: {n_of_incorrect}
 				<div>
-					<button on:click={() => goBack()}>Exit test</button>
+					<button on:click={() => goBack()}>Go Back</button>
 					<button on:click={() => saveLocalLog()}>Save logs</button>
 				</div>
 			</div>

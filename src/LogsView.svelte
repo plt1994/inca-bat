@@ -1,5 +1,5 @@
 <script>
-    import { navigate } from "svelte-navigator";
+    import { moveToPage } from "./navigator";
     import { localLog } from "./stores";
 </script>
 
@@ -13,7 +13,8 @@
             {/each}
         </div>
     {/each}
-    <center><button on:click={() => navigate(-1)}>Go Back</button></center>
+    <center><button on:click={() => moveToPage("menu")}>Go Back</button></center
+    >
 </div>
 
 <style>

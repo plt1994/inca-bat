@@ -1,6 +1,7 @@
 <script>
-    import { Link, navigate } from "svelte-navigator";
     import TestDisplayer from "./TestDisplayer.svelte";
+    import Link from "./Link.svelte";
+    import { moveToPage } from "./navigator";
 </script>
 
 <center><h1>Select a Test to start</h1></center>
@@ -8,12 +9,12 @@
     <div class="color">
         <TestDisplayer />
         <button class="buttonclass">
-            <Link to="/cardselection">Start selected test</Link>
+            <Link to="card_selection">Start selected test</Link>
         </button>
     </div>
 </center>
 
-<center><button on:click={() => navigate(-1)}>Go Back</button></center>
+<center><button on:click={() => moveToPage("menu")}>Go Back</button></center>
 
 <style>
     /* .color {
