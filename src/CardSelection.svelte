@@ -15,7 +15,6 @@
 		localLog,
 		subjectName,
 		learnerMode,
-		page,
 	} from "./stores.js";
 	import { moveToPage } from "./navigator";
 	import { longpress } from "./longpress.js";
@@ -25,10 +24,31 @@
 	let duration;
 	let showHeader;
 	let localShowCardText;
+	let localFeedbackSounds = [1, 2];
+	let test_log = ["Current test log Detail:"];
+	let t0, t1;
+	let current_test = tests[$selectedTest];
+	let correctSound;
+	let incorrectSound;
+	let testsSounds = {};
+	let cardsOnScreen;
+	let cardsOnScreenStr;
+	let n_of_correct = 0;
+	let n_of_incorrect = 0;
+	let n_of_test_total;
+	let done = false;
+	let touchable = false;
+	let cards = shuffle(current_test.cards);
+	let selectableCards = [];
+	let nOfSelectableCards = 0;
+	let correctN;
+	let correct_choice;
+	let separation;
+	let textHoldToExit = "Hold to exit";
+	let delayVoiceTime = 1000;
 	silenceVoice.subscribe((value) => {
 		soundIsActive = !value;
 	});
-	let localFeedbackSounds = [1, 2];
 	currentFeedbackSound.subscribe((value) => {
 		localFeedbackSounds = feedbackSoundsOptions[value].fbIds;
 	});
@@ -39,19 +59,12 @@
 		duration = value * 1000;
 	});
 	showCardText.subscribe((value) => (localShowCardText = value));
-	let test_log = ["Current test log Detail:"];
-	let current_test_id;
-	selectedTest.subscribe((value) => {
-		current_test_id = value;
+	nOfRepetitions.subscribe((value) => {
+		n_of_test_total = value;
 	});
-	let t0, t1;
-	let current_test = tests[current_test_id];
-	let correctSound;
-	let incorrectSound;
-	let testsSounds = {};
-	let cardsOnScreen;
-	let cardsOnScreenStr;
-	let localNOfCardsOnScreen; //subscribe this to a global value for settings
+	cardsSeparation.subscribe((value) => {
+		separation = value;
+	});
 	function loadTestSounds() {
 		let soundLocation;
 		let id;
@@ -65,45 +78,12 @@
 		correctSound = new Audio(feedbackSounds[localFeedbackSounds[0]]);
 		incorrectSound = new Audio(feedbackSounds[localFeedbackSounds[1]]);
 	}
-	if (soundIsActive) {
-		loadTestSounds();
-	}
-	loadFeedbackSounds();
 	function playCorrectChoiceSound(id) {
 		testsSounds[id].play();
 	}
-	nOfCardsOnScreen.subscribe((value) => {
-		localNOfCardsOnScreen = value;
-	});
 	function shuffle(array) {
 		return array.sort(() => Math.random() - 0.5);
 	}
-	let n_of_correct = 0;
-	let n_of_incorrect = 0;
-	let n_of_test_total;
-	nOfRepetitions.subscribe((value) => {
-		n_of_test_total = value;
-	});
-	if (preview) {
-		n_of_test_total = 1;
-	}
-	let done = false;
-	let touchable = false;
-	let cards = shuffle(current_test.cards);
-	//what is a selectable card??? its a card that has a meaning
-	//if a card is not selectable, its just for filling
-	let selectableCards = [];
-	for (var i = 0; i < cards.length; i++) {
-		let card = cards[i];
-		if (card.selectable) {
-			selectableCards.push(card);
-		}
-	}
-	let nOfSelectableCards = selectableCards.length;
-	let correctN = Math.floor(Math.random() * nOfSelectableCards);
-	let correct_choice = selectableCards[correctN];
-	//poner el correct choice y otra carta al azar
-
 	// Get sub-array of first n elements after shuffled
 	function setCurrentCardsOnScreen() {
 		let otherCards = [];
@@ -116,13 +96,11 @@
 		// Shuffle array
 		let shuffled = shuffle(otherCards);
 		// obtiene las primeras nOfCardsOnScreen-1 cartas entre las opciones incorrectas
-		cardsOnScreen = shuffled.slice(0, localNOfCardsOnScreen - 1);
+		cardsOnScreen = shuffled.slice(0, $nOfCardsOnScreen - 1);
 		cardsOnScreen.push(correct_choice);
 		cardsOnScreen = shuffle(cardsOnScreen);
 		cardsOnScreenStr = String(cardsOnScreen.map((card) => card.cardName));
 	}
-	setCurrentCardsOnScreen();
-	t0 = performance.now();
 	function generate_log(chosen, responseTime) {
 		var today = new Date();
 		var date =
@@ -174,18 +152,15 @@
 			}
 			touchable = true;
 			t0 = performance.now();
-		}, 1500);
+		}, delayVoiceTime);
 	}
-	let separation;
-	cardsSeparation.subscribe((value) => {
-		separation = value;
-	});
 	function convertSeparation() {
 		separation = 27 - (27 * separation) / 10;
 	}
-	convertSeparation();
-	let textHoldToExit = "Hold to exit";
-	function saveLocalLog(button) {
+	function saveLocalLog() {
+		if (!test_log) {
+			return;
+		}
 		let k = Object.keys($localLog).length;
 		let newLocalLog = $localLog;
 		newLocalLog[k] = test_log;
@@ -195,15 +170,35 @@
 		localLog.update(() => {
 			return newLocalLog;
 		});
-		alert(`test saved as Test #${k}`);
+		test_log = "";
+		// alert(`test saved as Test #${k}`);
 	}
 	function initTest() {
+		convertSeparation();
+		if (soundIsActive) {
+			loadTestSounds();
+		}
+		loadFeedbackSounds();
+		if (preview) {
+			n_of_test_total = 1;
+		}
+		for (var i = 0; i < cards.length; i++) {
+			let card = cards[i];
+			if (card.selectable) {
+				selectableCards.push(card);
+			}
+		}
+		correctN = Math.floor(Math.random() * nOfSelectableCards);
+		correct_choice = selectableCards[correctN];
+		setCurrentCardsOnScreen();
+		nOfSelectableCards = selectableCards.length;
 		setTimeout(function () {
 			if (soundIsActive) {
 				playCorrectChoiceSound(correct_choice.n);
 			}
+			t0 = performance.now();
 			touchable = true;
-		}, 1500);
+		}, delayVoiceTime);
 	}
 	function reset_test() {
 		initTest();
