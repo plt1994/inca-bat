@@ -1,7 +1,7 @@
 <!-- Fullscreen.svelte -->
 <script>
   import { onMount } from "svelte";
-  import { learnerMode } from "./stores";
+  import { learnerMode, bgColor } from "./stores";
 
   // define initial component state
   let isFull = false;
@@ -73,7 +73,12 @@
   let enterGameMsg = paused ? "Continue?" : "START!";
 </script>
 
-<div class="fs" class:isFull bind:this={fsContainer}>
+<div
+  style="--learnerbgcolor:{$bgColor}"
+  class="fs"
+  class:isFull
+  bind:this={fsContainer}
+>
   <slot {isFull} />
   {#if fullscreenSupport && !$learnerMode}
     <div class="bg-0">
@@ -98,7 +103,7 @@
     /* display: flex; */
     align-items: center;
     justify-content: center;
-    background-color: #fff;
+    background-color: var(--learnerbgcolor);
   }
   .button-enter-fullscreen {
     color: #000;

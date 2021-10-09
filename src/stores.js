@@ -16,6 +16,9 @@ const storedSaveLog = localStorage.saveLog
 const storedCardH = localStorage.cardH
 const storedCardW = localStorage.cardW
 const storedLocalLog = localStorage.localLog
+const storedBackgroundColor = localStorage.bgColor
+const storedCardBackgroundColor = localStorage.cardBgColor
+
 
 export const nOfRepetitions = writable(Number(storedNOfRepetitions) || 5)
 export const selectedTest = writable(0)
@@ -35,6 +38,16 @@ export const cardW = writable(Number(storedCardW) || 160)
 export const localLog = writable(JSON.parse(storedLocalLog || "{}") || {})
 export const learnerMode = writable(false)
 export const page = writable("menu")
+export const bgColor = writable(storedBackgroundColor || "#fff")
+export const cardBgColor = writable(storedCardBackgroundColor || "#fff")
+
+cardBgColor.subscribe((value) => {
+    localStorage.cardBgColor = value
+})
+
+bgColor.subscribe((value) => {
+    localStorage.bgColor = value
+})
 
 subjectName.subscribe((value) => {
     localStorage.subjectName = value
@@ -84,7 +97,3 @@ cardW.subscribe((value) => {
 localLog.subscribe((value) => {
     localStorage.localLog = JSON.stringify(value)
 })
-
-
-//agregar los tests las imagenes y los sonidos aqui, 
-//asi se puede extender esto para que los usuarios agreguen sus propios tests

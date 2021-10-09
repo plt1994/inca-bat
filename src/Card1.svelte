@@ -1,10 +1,10 @@
 <!-- draws a simple card with a circle inside or not -->
 <script>
     export let id = 1;
-    // export let mode = "dot"; // simpleDice, fancyDice
-    import { cardH, cardW } from "./stores";
+    // export let mode = "dot"; // simpleDice, fancyDic
+    import { cardH, cardW, cardBgColor } from "./stores";
     import Circle from "./Circle.svelte";
-    export let base_color_face = "white";
+    export let base_color_face = $cardBgColor;
     export let base_color_dot = "black";
     export let width = 160;
     export let height = 160;
@@ -72,7 +72,7 @@
         width={width - 10}
         height={height - 10}
         fill={base_color_face}
-        fill-opacity="0.8"
+        fill-opacity="1"
     />
     {#if id == 9}
         <circle cx="32" cy="32" r={radius} fill={base_color_dot} />

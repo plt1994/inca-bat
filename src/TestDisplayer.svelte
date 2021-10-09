@@ -2,6 +2,7 @@
     import { selectedTest } from "./stores.js";
     import Card2 from "./Card2.svelte";
     import Card1 from "./Card1.svelte";
+    import Card from "./Card.svelte";
     import { Sounds } from "./sounds";
     import { getSound, getTests, getCard } from "./controller";
     let selected_test;
@@ -45,7 +46,8 @@
             {#each tests[selected_test_index].cards as card}
                 <div class="card-preview" on:click={() => playSound(card)}>
                     <p>{getCard(card.cardId).cardName}</p>
-                    {#if getCard(card.cardId).cardType == "diceCard"}
+                    <div id={card.cardId}>
+                        <!-- {#if getCard(card.cardId).cardType == "diceCard"}
                         <Card1
                             id={getCard(card.cardId).details.n}
                             width={100}
@@ -59,7 +61,14 @@
                             height={100}
                             preview="true"
                         />
-                    {/if}
+                    {/if} -->
+                        <Card
+                            cardObject={card}
+                            width={100}
+                            height={100}
+                            preview="true"
+                        />
+                    </div>
                 </div>
             {/each}
         </div>
@@ -68,7 +77,7 @@
 
 <style>
     .card-preview {
-        background-color: antiquewhite;
+        background-color: #fff;
     }
     .cards-preview {
         display: flex;

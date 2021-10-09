@@ -16,6 +16,8 @@
         silenceVoice,
         currentFeedbackSound,
         localLog,
+        bgColor,
+        cardBgColor,
     } from "./stores.js";
     const logStyleStr = {
         0: "Verbose (every selection)",
@@ -78,7 +80,16 @@
             <input bind:value={$subjectName} />
         </div>
     </SettingsOption>
-
+    <SettingsOption name="Learner Screen background color">
+        <div>
+            <input bind:value={$bgColor} />
+        </div>
+    </SettingsOption>
+    <SettingsOption name="Card background color (if transparent)">
+        <div>
+            <input bind:value={$cardBgColor} />
+        </div>
+    </SettingsOption>
     <SettingsOption name="Logging Style">
         <div>
             <button on:click={() => increment(loggingStyle, 1)}> + </button>

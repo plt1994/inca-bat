@@ -1,6 +1,6 @@
 <script>
     import { getImage } from "./controller";
-    import { cardH, cardW, nOfCardsOnScreen } from "./stores";
+    import { cardH, cardW, nOfCardsOnScreen, cardBgColor } from "./stores";
     export let id = 0;
     export let width = 160;
     export let height = 160;
@@ -25,12 +25,20 @@
     };
 </script>
 
-<div style="--bgcolor:{BgColor[id]}" class="bgcolorcard">
-    <img src={getImage(id)} alt="" {height} {width} />
+<div>
+    <img
+        style="--card-bgcolor:{$cardBgColor}"
+        class="cardBgColor"
+        src={getImage(id)}
+        alt=""
+        {height}
+        {width}
+    />
 </div>
 
 <style>
-    .bgcolorcard {
-        /* background-color: var(--bgcolor); */
+    .cardBgColor {
+        background-color: var(--card-bgcolor);
+        border-radius: 10px;
     }
 </style>

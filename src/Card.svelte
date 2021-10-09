@@ -16,13 +16,15 @@
     }
 </script>
 
-{#if cardType == "imageCard"}
-    <CardCustom id={cardObject.cardId} {preview} {height} {width} />
-{:else if cardType == "diceCard"}
-    <CardPreset
-        id={getCard(cardObject.cardId).details.n}
-        {preview}
-        {height}
-        {width}
-    />
-{/if}
+<div>
+    {#if getCard(cardObject.cardId).cardType == "imageCard"}
+        <CardCustom id={cardObject.cardId} {preview} {height} {width} />
+    {:else if getCard(cardObject.cardId).cardType == "diceCard"}
+        <CardPreset
+            id={getCard(cardObject.cardId).details.n}
+            {preview}
+            {height}
+            {width}
+        />
+    {/if}
+</div>
