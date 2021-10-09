@@ -1,8 +1,7 @@
-<!-- draws a simple card with a circle inside or not -->
 <script>
-    import { Images } from "./images";
+    import { getImage } from "./controller";
     import { cardH, cardW, nOfCardsOnScreen } from "./stores";
-    export let id = 0; //card id
+    export let id = 0;
     export let width = 160;
     export let height = 160;
     export let preview = false;
@@ -24,13 +23,10 @@
         0: "blue",
         1: "red",
     };
-    function getCardImage(id) {
-        return Images[id] || "images/default.png";
-    }
 </script>
 
 <div style="--bgcolor:{BgColor[id]}" class="bgcolorcard">
-    <img src={getCardImage(id)} alt="" {height} {width} />
+    <img src={getImage(id)} alt="" {height} {width} />
 </div>
 
 <style>

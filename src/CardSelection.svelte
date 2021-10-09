@@ -1,7 +1,6 @@
 <script>
 	import Card from "./Card.svelte";
 	import Header from "./Header.svelte";
-	import { tests } from "./tests.js";
 	import {
 		nOfRepetitions,
 		selectedTest,
@@ -18,7 +17,8 @@
 	} from "./stores.js";
 	import { moveToPage } from "./navigator";
 	import { longpress } from "./longpress.js";
-	import { Sounds, feedbackSounds, feedbackSoundsOptions } from "./sounds";
+	import { feedbackSounds, feedbackSoundsOptions } from "./sounds";
+	import { getTest, getSound } from "./controller";
 	export let preview = false;
 	let soundIsActive = true;
 	let duration;
@@ -27,7 +27,7 @@
 	let localFeedbackSounds = [1, 2];
 	let test_log = ["Current test log Detail:"];
 	let t0, t1;
-	let current_test = tests[$selectedTest];
+	let current_test = getTest($selectedTest);
 	let correctSound;
 	let incorrectSound;
 	let testsSounds = {};
@@ -70,8 +70,8 @@
 		let id;
 		current_test.cards.forEach((card) => {
 			id = card.soundId;
-			soundLocation = Sounds[id];
-			testsSounds[card.n] = new Audio(soundLocation);
+			soundLocation = getSound(id);
+			testsSounds[card.cardId] = new Audio(soundLocation);
 		});
 	}
 	function loadFeedbackSounds() {
@@ -89,7 +89,7 @@
 		let otherCards = [];
 		for (var i = 0; i < cards.length; i++) {
 			let card = cards[i];
-			if (card.n != correct_choice.n) {
+			if (card.cardId != correct_choice.cardId) {
 				otherCards.push(card);
 			}
 		}
@@ -128,8 +128,8 @@
 		//how to get current options?
 		//what if i have more than one option to select?
 		touchable = false;
-		// console.log(id.n, correct_choice.n)
-		if (chosenCard.n == correct_choice.n) {
+		// console.log(id.cardId, correct_choice.cardId)
+		if (chosenCard.cardId == correct_choice.cardId) {
 			correctSound.play();
 			n_of_correct += 1;
 		} else {
@@ -148,7 +148,7 @@
 			cards = shuffle(current_test.cards);
 			setCurrentCardsOnScreen();
 			if (soundIsActive) {
-				playCorrectChoiceSound(correct_choice.n);
+				playCorrectChoiceSound(correct_choice.cardId);
 			}
 			touchable = true;
 			t0 = performance.now();
@@ -194,7 +194,7 @@
 		nOfSelectableCards = selectableCards.length;
 		setTimeout(function () {
 			if (soundIsActive) {
-				playCorrectChoiceSound(correct_choice.n);
+				playCorrectChoiceSound(correct_choice.cardId);
 			}
 			t0 = performance.now();
 			touchable = true;

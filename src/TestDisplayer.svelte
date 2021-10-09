@@ -1,10 +1,11 @@
 <script>
-    import { tests } from "./tests.js";
     import { selectedTest } from "./stores.js";
     import Card2 from "./Card2.svelte";
     import Card1 from "./Card1.svelte";
     import { Sounds } from "./sounds";
+    import { getSound, getTests, getCard } from "./controller";
     let selected_test;
+    let tests = getTests();
     let sounds = {};
     selectedTest.subscribe((value) => {
         selected_test = value;
@@ -16,14 +17,14 @@
     }
     function playSound(card) {
         console.log(sounds);
-        if (!sounds[card.n]) {
+        if (!sounds[card.cardId]) {
             let soundLocation = Sounds[card.soundId];
             if (!soundLocation) {
                 return;
             }
-            sounds[card.n] = new Audio(soundLocation);
+            sounds[card.cardId] = new Audio(soundLocation);
         }
-        sounds[card.n].play();
+        sounds[card.cardId].play();
     }
 </script>
 
@@ -43,17 +44,17 @@
         <div class="cards-preview">
             {#each tests[selected_test_index].cards as card}
                 <div class="card-preview" on:click={() => playSound(card)}>
-                    <p>{card.cardName}</p>
-                    {#if card.cardType == "diceCard"}
+                    <p>{getCard(card.cardId).cardName}</p>
+                    {#if getCard(card.cardId).cardType == "diceCard"}
                         <Card1
-                            id={card.details.n}
+                            id={getCard(card.cardId).details.n}
                             width={100}
                             height={100}
                             preview="true"
                         />
-                    {:else if card.cardType == "imageCard"}
+                    {:else if getCard(card.cardId).cardType == "imageCard"}
                         <Card2
-                            id={card.n}
+                            id={card.cardId}
                             width={100}
                             height={100}
                             preview="true"
