@@ -1,9 +1,6 @@
 <script>
     import { selectedTest } from "./stores.js";
-    import Card2 from "./Card2.svelte";
-    import Card1 from "./Card1.svelte";
     import Card from "./Card.svelte";
-    import { Sounds } from "./sounds";
     import { getSound, getTests, getCard } from "./controller";
     let selected_test;
     let tests = getTests();
@@ -17,9 +14,8 @@
         selectedTest.update(() => selected_test_index);
     }
     function playSound(card) {
-        console.log(sounds);
         if (!sounds[card.cardId]) {
-            let soundLocation = Sounds[card.soundId];
+            let soundLocation = getSound(card.soundId);
             if (!soundLocation) {
                 return;
             }
@@ -47,23 +43,8 @@
                 <div class="card-preview" on:click={() => playSound(card)}>
                     <p>{getCard(card.cardId).cardName}</p>
                     <div id={card.cardId}>
-                        <!-- {#if getCard(card.cardId).cardType == "diceCard"}
-                        <Card1
-                            id={getCard(card.cardId).details.n}
-                            width={100}
-                            height={100}
-                            preview="true"
-                        />
-                    {:else if getCard(card.cardId).cardType == "imageCard"}
-                        <Card2
-                            id={card.cardId}
-                            width={100}
-                            height={100}
-                            preview="true"
-                        />
-                    {/if} -->
                         <Card
-                            cardObject={card}
+                            testCard={card}
                             width={100}
                             height={100}
                             preview="true"

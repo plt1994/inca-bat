@@ -43,6 +43,10 @@ export function getCard(id) {
     return card[id]
 }
 
+export function getCards() {
+    return Object.values(card)
+}
+
 export function getSound(id) {
     return Sounds[id]
 }

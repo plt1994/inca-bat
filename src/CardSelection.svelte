@@ -239,7 +239,7 @@
 				<div class="space-around">
 					{#each cardsOnScreen as c}
 						<div on:click={() => select(c)}>
-							<Card cardObject={c} />
+							<Card testCard={c} />
 						</div>
 					{/each}
 				</div>

@@ -6,6 +6,7 @@
 	import Menu from "./Menu.svelte";
 	import Settings from "./Settings.svelte";
 	import LogsView from "./LogsView.svelte";
+	import TestCreator from "./TestCreator.svelte";
 	import { page } from "./stores";
 </script>
 
@@ -25,6 +26,8 @@
 		<TestSelection />
 	{:else if $page == "about"}
 		<About />
+	{:else if $page == "test_creator"}
+		<TestCreator />
 	{:else}
 		<div><p>404: not found</p></div>
 	{/if}

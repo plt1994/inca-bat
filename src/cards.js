@@ -1,5 +1,6 @@
 export const card = {
     0: {
+        id: 0,
         cardName: "white card",
         cardType: "imageCard",
         details: {
@@ -7,6 +8,7 @@ export const card = {
         }
     },
     1: {
+        id: 1,
         cardName: "dot card",
         cardType: "imageCard",
         details: {
@@ -14,6 +16,7 @@ export const card = {
         }
     },
     2: {
+        id: 2,
         cardName: "dot card",
         cardType: "diceCard",
         details: {
@@ -22,6 +25,7 @@ export const card = {
         },
     },
     3: {
+        id: 3,
         cardName: "2 dots card",
         cardType: "diceCard",
         details: {
