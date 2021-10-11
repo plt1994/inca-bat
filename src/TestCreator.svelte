@@ -1,6 +1,7 @@
 <script>
     import { getCards } from "./controller";
-    import { localCards, localTests } from "./stores";
+    import CardCreator from "./CardCreator.svelte";
+    import { localTests } from "./stores";
     import Link from "./Link.svelte";
     import Card from "./Card.svelte";
     let cards = getCards();
@@ -96,9 +97,6 @@
         <div>
             {JSON.stringify(buildTest())}
         </div>
-        <div>
-            <Link to="menu"><button>Finish</button></Link>
-        </div>
     {:else if steps[step] == "zero"}
         <div>
             1. select cards to put in the test (show all the cards available)
@@ -126,6 +124,7 @@
                         >
                     </div>
                 {/each}
+                <CardCreator width={100} height={100} />
             </div>
         </div>
         <!-- <div>(add option to add new cards also)</div> -->
@@ -156,10 +155,17 @@
 
     {#if !done}
         <div>
-            <button id="back-button" on:click={() => stepBack()}>back</button>
+            {#if step != 0}
+                <button id="back-button" on:click={() => stepBack()}
+                    >back</button
+                >
+            {/if}
             <button id="next-button" on:click={() => nextStep()}>Next</button>
         </div>
     {/if}
+    <div>
+        <Link to="menu"><button>Menu</button></Link>
+    </div>
 </center>
 
 <style>

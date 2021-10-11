@@ -44,7 +44,7 @@ export const bgColor = writable(storedBackgroundColor || "#fff")
 export const cardBgColor = writable(storedCardBackgroundColor || "#fff")
 
 //local Tests
-export const localTests = writable(JSON.parse(storedLocalTests || "{}") || [{
+export const localTests = writable(JSON.parse(storedLocalTests || "[{}]") || [{
     localId: 0,
     id: "local-0",
     cards: [
@@ -76,7 +76,7 @@ export const localTests = writable(JSON.parse(storedLocalTests || "{}") || [{
     name: "touch the dot demo 3",
     tags: ["Local"]
 }])
-export const localCards = writable(JSON.parse(storedLocalCards || "{}") || [{
+export const localCards = writable(JSON.parse(storedLocalCards || "[{}]") || [{
     localId: 0,
     id: "local-0",
     cardName: "queen card",

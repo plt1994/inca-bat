@@ -7,6 +7,7 @@
 	import Settings from "./Settings.svelte";
 	import LogsView from "./LogsView.svelte";
 	import TestCreator from "./TestCreator.svelte";
+	import CardCreator from "./CardCreator.svelte";
 	import { page } from "./stores";
 </script>
 
@@ -28,6 +29,8 @@
 		<About />
 	{:else if $page == "test_creator"}
 		<TestCreator />
+	{:else if $page == "new_card"}
+		<CardCreator createNew={true} />
 	{:else}
 		<div><p>404: not found</p></div>
 	{/if}
