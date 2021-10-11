@@ -1,21 +1,21 @@
-export const card = {
-    0: {
+export const cards = [
+    {
         id: 0,
         cardName: "white card",
         cardType: "imageCard",
         details: {
-            imgId: 0
+            imgSrc: "images/card-blank.png"
         }
     },
-    1: {
+    {
         id: 1,
         cardName: "dot card",
         cardType: "imageCard",
         details: {
-            imgId: 1
+            imgSrc: "images/dot-card.png"
         }
     },
-    2: {
+    {
         id: 2,
         cardName: "dot card",
         cardType: "diceCard",
@@ -24,7 +24,7 @@ export const card = {
             n: 1
         },
     },
-    3: {
+    {
         id: 3,
         cardName: "2 dots card",
         cardType: "diceCard",
@@ -33,4 +33,4 @@ export const card = {
             n: 2
         },
     }
-}
+]

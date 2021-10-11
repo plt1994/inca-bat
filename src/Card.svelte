@@ -17,12 +17,22 @@
 <div>
     {#if cardObject}
         {#if cardObject.cardType == "imageCard"}
-            <CardCustom id={cardObject.id} {preview} {height} {width} />
+            <CardCustom
+                imgSrc={cardObject.details.imgSrc}
+                {preview}
+                {height}
+                {width}
+            />
         {:else if cardObject.cardType == "diceCard"}
             <CardPreset id={cardObject.details.n} {preview} {height} {width} />
         {/if}
     {:else if getCard(testCard.cardId).cardType == "imageCard"}
-        <CardCustom id={testCard.cardId} {preview} {height} {width} />
+        <CardCustom
+            imgSrc={getCard(testCard.cardId).details.imgSrc}
+            {preview}
+            {height}
+            {width}
+        />
     {:else if getCard(testCard.cardId).cardType == "diceCard"}
         <CardPreset
             id={getCard(testCard.cardId).details.n}

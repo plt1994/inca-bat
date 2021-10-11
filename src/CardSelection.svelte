@@ -18,7 +18,7 @@
 	import { moveToPage } from "./navigator";
 	import { longpress } from "./longpress.js";
 	import { feedbackSounds, feedbackSoundsOptions } from "./sounds";
-	import { getTest, getSound } from "./controller";
+	import { getTest } from "./controller";
 	export let preview = false;
 	let soundIsActive = true;
 	let duration;
@@ -67,10 +67,8 @@
 	});
 	function loadTestSounds() {
 		let soundLocation;
-		let id;
 		current_test.cards.forEach((card) => {
-			id = card.soundId;
-			soundLocation = getSound(id);
+			soundLocation = card.soundSrc;
 			testsSounds[card.cardId] = new Audio(soundLocation);
 		});
 	}

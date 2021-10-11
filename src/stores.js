@@ -21,7 +21,7 @@ const storedCardBackgroundColor = localStorage.cardBgColor
 
 
 export const nOfRepetitions = writable(Number(storedNOfRepetitions) || 5)
-export const selectedTest = writable(0)
+export const selectedTest = writable("0")
 export const loggingStyle = writable(Number(storedLoggingStyle) || 0) //0 for verbose, 1 for simple
 export const subjectName = writable(storedSubjectName || "Subject")
 export const cardsSeparation = writable(Number(storedCardsSeparation) || 5) //1 to 10
@@ -40,6 +40,49 @@ export const learnerMode = writable(false)
 export const page = writable("menu")
 export const bgColor = writable(storedBackgroundColor || "#fff")
 export const cardBgColor = writable(storedCardBackgroundColor || "#fff")
+
+//local Tests
+export const localTests = writable([{
+    localId: 0,
+    id: "local-0",
+    cards: [
+        {
+            cardId: 0,
+            msg: "touch the white",
+            selectable: false,
+            soundSrc: null
+        },
+        {
+            cardId: 2,
+            msg: "touch the number 1",
+            selectable: true,
+            soundSrc: "sounds/cards/1.mp3"
+        },
+        {
+            cardId: 3,
+            msg: "touch the number 2",
+            selectable: true,
+            soundSrc: "sounds/cards/2.mp3"
+        },
+        {
+            cardId: "local-0",
+            msg: "",
+            selectable: false,
+            soundSrc: null
+        }
+    ],
+    name: "touch the dot demo 3",
+    tags: ["Local"]
+}])
+export const localCards = writable([{
+    localId: 0,
+    id: "local-0",
+    cardName: "queen card",
+    cardType: "imageCard",
+    details: {
+        imgSrc: "images/card-1.png"
+    }
+}])
 
 cardBgColor.subscribe((value) => {
     localStorage.cardBgColor = value

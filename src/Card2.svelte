@@ -1,7 +1,6 @@
 <script>
-    import { getImage } from "./controller";
     import { cardH, cardW, nOfCardsOnScreen, cardBgColor } from "./stores";
-    export let id = 0;
+    export let imgSrc = "images/default.png";
     export let width = 160;
     export let height = 160;
     export let preview = false;
@@ -29,7 +28,7 @@
     <img
         style="--card-bgcolor:{$cardBgColor}"
         class="cardBgColor"
-        src={getImage(id)}
+        src={imgSrc}
         alt=""
         {height}
         {width}

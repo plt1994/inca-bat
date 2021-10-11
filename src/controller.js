@@ -1,19 +1,25 @@
 import { tests } from "./tests.js";
-import { card } from "./cards"
-import { Sounds } from "./sounds"
-import { Images } from "./images"
+import { cards } from "./cards"
+import { localCards, localTests } from "./stores";
 
-export function getImage(id) {
-    return Images[id] || "images/default.png";
-}
+let allCards;
+let allTests;
+
+localCards.subscribe((value) => {
+    allCards = [...cards, ...value]
+})
+
+localTests.subscribe((value) => {
+    allTests = [...tests, ...value]
+})
 
 export function getTests() {
-    return tests
+    return allTests
 }
 
 export function getTest(id) {
-    for (let i = 0; i < tests.length; i++) {
-        let test = tests[i];
+    for (let i = 0; i < allTests.length; i++) {
+        let test = allTests[i];
         if (test.id == id) {
             return test
         }
@@ -40,13 +46,15 @@ function createTest(testCards, name) {
 }
 
 export function getCard(id) {
-    return card[id]
+    for (let i = 0; i < allCards.length; i++) {
+        let card = allCards[i];
+        if (card.id == id) {
+            return card
+        }
+    }
+    return null;
 }
 
 export function getCards() {
-    return Object.values(card)
-}
-
-export function getSound(id) {
-    return Sounds[id]
+    return allCards
 }
