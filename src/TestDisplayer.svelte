@@ -1,21 +1,12 @@
 <script>
     import { selectedTest } from "./stores.js";
     import Card from "./Card.svelte";
-    import { getSound, getTests, getCard } from "./controller";
-    let selected_test;
+    import { getTests, getCard, getTest } from "./controller";
     let tests = getTests();
     let sounds = {};
-    selectedTest.subscribe((value) => {
-        selected_test = value;
-    });
-
-    let selected_test_index = selected_test;
-    function selectTestIndex() {
-        selectedTest.update(() => selected_test_index);
-    }
     function playSound(card) {
         if (!sounds[card.cardId]) {
-            let soundLocation = getSound(card.soundId);
+            let soundLocation = card.soundSrc;
             if (!soundLocation) {
                 return;
             }
@@ -25,10 +16,10 @@
     }
 </script>
 
-<select bind:value={selected_test_index} on:change={() => selectTestIndex()}>
-    {#each tests as test, i}
-        <option value={i}>
-            {test.name}
+<select bind:value={$selectedTest}>
+    {#each tests as test}
+        <option value={test.id}>
+            {test.name} [{test.tags}]
         </option>
     {/each}
 </select>
@@ -36,10 +27,10 @@
 <!-- display selected test details -->
 <div class="color">
     <div class="buttonclass">
-        <p>Test name: {tests[selected_test_index].name}</p>
+        <p>Test name: {getTest($selectedTest).name}</p>
         <p>Test cards:</p>
         <div class="cards-preview">
-            {#each tests[selected_test_index].cards as card}
+            {#each getTest($selectedTest).cards as card}
                 <div class="card-preview" on:click={() => playSound(card)}>
                     <p>{getCard(card.cardId).cardName}</p>
                     <div id={card.cardId}>
