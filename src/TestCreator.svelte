@@ -1,5 +1,6 @@
 <script>
     import { getCards } from "./controller";
+    import { localCards, localTests } from "./stores";
     import Link from "./Link.svelte";
     import Card from "./Card.svelte";
     let cards = getCards();
@@ -42,30 +43,51 @@
         console.log(JSON.stringify(testSoundsReferenced));
         return testSoundsReferenced;
     }
+
+    function getNewTestId() {
+        let newId = 0;
+        console.log($localTests.length);
+        for (let i = 0; i < $localTests.length; i++) {
+            let test = $localTests[i];
+            console.log(test);
+            if (newId <= test.localId) {
+                newId = test.localId + 1;
+                console.log(newId);
+            }
+        }
+        return newId;
+    }
+
     function buildTest() {
         //TODO:
         //4. falta dar un preview del test y permitir guardarlo localmente
         //5. permitir guardarlo en el servidor
-        let lastTestId = -1;
-        let newTestId = lastTestId + 1;
+        let newTestId = getNewTestId();
         let testCards = [];
-        let soundsForTest = addSoundsToDb(cardsSounds);
         for (let i = 0; i < selectedCards.length; i++) {
-            let testSoundId = soundsForTest[selectedCards[i].id];
+            let testSoundSource = cardsSounds[selectedCards[i].id];
             testCards.push({
                 cardId: selectedCards[i].id,
-                soundId: testSoundId || 0,
-                selectable: testSoundId ? true : false,
+                soundSrc: testSoundSource || 0,
+                selectable: testSoundSource ? true : false,
                 msg: msgForTest[selectedCards[i].id],
             });
         }
         let newTest = {
-            id: newTestId,
+            localId: newTestId,
+            id: `local-${newTestId}`,
             name: testname,
             cards: testCards,
+            tags: ["local"],
         };
+        let newLocalTests = $localTests;
+        newLocalTests.push(newTest);
+        localTests.update(() => {
+            return newLocalTests;
+        });
         return newTest;
     }
+    console.log(getNewTestId());
 </script>
 
 <center>
