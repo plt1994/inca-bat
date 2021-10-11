@@ -18,6 +18,8 @@ const storedCardW = localStorage.cardW
 const storedLocalLog = localStorage.localLog
 const storedBackgroundColor = localStorage.bgColor
 const storedCardBackgroundColor = localStorage.cardBgColor
+const storedLocalTests = localStorage.localTests
+const storedLocalCards = localStorage.localCards
 
 
 export const nOfRepetitions = writable(Number(storedNOfRepetitions) || 5)
@@ -35,14 +37,14 @@ export const currentFeedbackSound = writable(Number(storedCurrentFeedbackSound) 
 export const saveLog = writable(true)
 export const cardH = writable(Number(storedCardH) || 180)
 export const cardW = writable(Number(storedCardW) || 160)
-export const localLog = writable(JSON.parse(storedLocalLog || "{}") || {})
+export const localLog = writable(JSON.parse(storedLocalLog || "{}"))
 export const learnerMode = writable(false)
 export const page = writable("menu")
 export const bgColor = writable(storedBackgroundColor || "#fff")
 export const cardBgColor = writable(storedCardBackgroundColor || "#fff")
 
 //local Tests
-export const localTests = writable([{
+export const localTests = writable(JSON.parse(storedLocalTests || "{}") || [{
     localId: 0,
     id: "local-0",
     cards: [
@@ -74,7 +76,7 @@ export const localTests = writable([{
     name: "touch the dot demo 3",
     tags: ["Local"]
 }])
-export const localCards = writable([{
+export const localCards = writable(JSON.parse(storedLocalCards || "{}") || [{
     localId: 0,
     id: "local-0",
     cardName: "queen card",
@@ -83,6 +85,14 @@ export const localCards = writable([{
         imgSrc: "images/card-1.png"
     }
 }])
+
+localTests.subscribe((value) => {
+    localStorage.localTests = JSON.stringify(value)
+})
+
+localCards.subscribe((value) => {
+    localStorage.localCards = JSON.stringify(value)
+})
 
 cardBgColor.subscribe((value) => {
     localStorage.cardBgColor = value
