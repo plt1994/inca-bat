@@ -7,6 +7,7 @@
         nOfCardsOnScreen,
         cardsSeparation,
         subjectName,
+        username,
         loggingStyle,
         timeHoldToExit,
         showTitle,
@@ -75,9 +76,14 @@
             <button on:click={() => decrement(cardsSeparation, 0)}> - </button>
         </div>
     </SettingsOption>
-    <SettingsOption name="Subject name">
+    <SettingsOption name="Learner name">
         <div>
             <input bind:value={$subjectName} />
+        </div>
+    </SettingsOption>
+    <SettingsOption name="Teacher name">
+        <div>
+            <input bind:value={$username} />
         </div>
     </SettingsOption>
     <SettingsOption name="Learner Screen background color">

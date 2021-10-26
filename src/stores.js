@@ -20,12 +20,14 @@ const storedBackgroundColor = localStorage.bgColor
 const storedCardBackgroundColor = localStorage.cardBgColor
 const storedLocalTests = localStorage.localTests
 const storedLocalCards = localStorage.localCards
+const storedUsername = localStorage.username
 
 
 export const nOfRepetitions = writable(Number(storedNOfRepetitions) || 5)
 export const selectedTest = writable("0")
 export const loggingStyle = writable(Number(storedLoggingStyle) || 0) //0 for verbose, 1 for simple
 export const subjectName = writable(storedSubjectName || "Subject")
+export const username = writable(storedUsername || "Default")
 export const cardsSeparation = writable(Number(storedCardsSeparation) || 5) //1 to 10
 export const nOfCardsOnScreen = writable(Number(storedNOfCardsOnScreen) || 2)
 export const timeHoldToExit = writable(Number(storedTimeHoldToExit) || 2)
@@ -92,6 +94,10 @@ localTests.subscribe((value) => {
 
 localCards.subscribe((value) => {
     localStorage.localCards = JSON.stringify(value)
+})
+
+username.subscribe((value) => {
+    localStorage.username = value
 })
 
 cardBgColor.subscribe((value) => {
