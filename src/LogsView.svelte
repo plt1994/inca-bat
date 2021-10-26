@@ -3,7 +3,7 @@
     import { localLog } from "./stores";
 </script>
 
-<center><h1>Settings</h1></center>
+<center><h1>Local Logs</h1></center>
 <div>
     {#each Object.keys($localLog) as id}
         <div class="color">
