@@ -18,7 +18,7 @@
 	import { moveToPage } from "./navigator";
 	import { longpress } from "./longpress.js";
 	import { feedbackSounds, feedbackSoundsOptions } from "./sounds";
-	import { getTest } from "./controller";
+	import { getTest, getCard } from "./controller";
 	export let preview = false;
 	let soundIsActive = true;
 	let duration;
@@ -97,7 +97,9 @@
 		cardsOnScreen = shuffled.slice(0, $nOfCardsOnScreen - 1);
 		cardsOnScreen.push(correct_choice);
 		cardsOnScreen = shuffle(cardsOnScreen);
-		cardsOnScreenStr = String(cardsOnScreen.map((card) => card.cardName));
+		cardsOnScreenStr = String(
+			cardsOnScreen.map((card) => getCard(card.cardId).cardName)
+		);
 	}
 	function generate_log(chosen, responseTime) {
 		var today = new Date();
@@ -134,9 +136,10 @@
 			incorrectSound.play();
 			n_of_incorrect += 1;
 		}
-		generate_log(chosenCard.cardName, (t1 - t0) / 1000);
+		generate_log(getCard(chosenCard.cardId).cardName, (t1 - t0) / 1000);
 		if (n_of_correct + n_of_incorrect >= n_of_test_total) {
 			done = true;
+			saveLocalLog();
 			return;
 		}
 		setTimeout(function () {
@@ -169,7 +172,7 @@
 		localLog.update(() => {
 			return newLocalLog;
 		});
-		test_log = "";
+		test_log = [];
 		// alert(`test saved as Test #${k}`);
 	}
 	function initTest() {
@@ -266,7 +269,6 @@
 				correct: {n_of_correct}; incorrect: {n_of_incorrect}
 				<div>
 					<button on:click={() => goBack()}>Go Back</button>
-					<button on:click={() => saveLocalLog()}>Save logs</button>
 				</div>
 			</div>
 		{/if}
