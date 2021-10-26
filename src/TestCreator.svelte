@@ -1,7 +1,7 @@
 <script>
     import { getCards } from "./controller";
     import CardCreator from "./CardCreator.svelte";
-    import { localTests } from "./stores";
+    import { localTests, username } from "./stores";
     import Link from "./Link.svelte";
     import Card from "./Card.svelte";
     let cards = getCards();
@@ -56,7 +56,7 @@
             method: "POST",
             body: JSON.stringify({
                 text: text,
-                username: "test",
+                username: $username,
             }),
         });
 
@@ -117,8 +117,9 @@
 
 <center>
     <div>Test Creator</div>
-
-    {#if done}
+    {#if $username == "Default"}
+        <div>Please set up the Teacher Name on Settings</div>
+    {:else if done}
         <div>
             Your test was succesfuly created, click on Menu to leave the Test
             Creator
@@ -189,7 +190,7 @@
                     >back</button
                 >
             {/if}
-            {#if step != 3}
+            {#if step != 3 && $username != "Default"}
                 <button id="next-button" on:click={() => nextStep()}
                     >Next</button
                 >
