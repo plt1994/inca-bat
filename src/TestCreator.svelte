@@ -48,6 +48,9 @@
     }
     const INCA_BAT_BACKEND_URL = "https://buho.dcc.uchile.cl/inca-bat-api";
     async function requestNewSound(text) {
+        if (!text) {
+            return;
+        }
         const res = await fetch(INCA_BAT_BACKEND_URL + "/text-to-speech", {
             headers: {
                 Accept: "application/json",
@@ -91,9 +94,11 @@
             ).then((value) => value);
             testCards.push({
                 cardId: selectedCards[i].id,
-                soundSrc: `${INCA_BAT_BACKEND_URL}/static/sounds/${soundFilename}`,
+                soundSrc: soundFilename
+                    ? `${INCA_BAT_BACKEND_URL}/static/sounds/${soundFilename}`
+                    : null,
                 // soundSrc: testSoundSource || 0,
-                selectable: true,
+                selectable: soundFilename ? true : false,
                 msg: msgForTest[selectedCards[i].id],
             });
         }
