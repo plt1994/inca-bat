@@ -155,6 +155,7 @@
 	function convertSeparation() {
 		separation = 27 - (27 * separation) / 10;
 	}
+	convertSeparation();
 	function saveLocalLog() {
 		if (!test_log) {
 			return;
@@ -172,7 +173,6 @@
 		// alert(`test saved as Test #${k}`);
 	}
 	function initTest() {
-		convertSeparation();
 		if (soundIsActive) {
 			loadTestSounds();
 		}

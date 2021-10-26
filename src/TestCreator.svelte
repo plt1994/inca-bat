@@ -9,16 +9,18 @@
     const steps = ["zero", "one", "two", "three"];
     let step = 0;
     let done = false;
+    let loading = false;
     let cardsSounds = {};
     let msgForTest = {};
     let testname;
+    let result = null;
     function nextStep() {
         if (selectedCards.length < 1 && step == 0) {
             return;
         }
-        if (Object.keys(cardsSounds).length < 1 && step == 1) {
-            return;
-        }
+        // if (Object.keys(cardsSounds).length < 1 && step == 1) {
+        //     return;
+        // }
         if (step < 4) {
             step++;
         }
@@ -44,6 +46,23 @@
         console.log(JSON.stringify(testSoundsReferenced));
         return testSoundsReferenced;
     }
+    const INCA_BAT_BACKEND_URL = "https://buho.dcc.uchile.cl/inca-bat-api";
+    async function requestNewSound(text) {
+        const res = await fetch(INCA_BAT_BACKEND_URL + "/text-to-speech", {
+            headers: {
+                Accept: "application/json",
+                "Content-Type": "application/json",
+            },
+            method: "POST",
+            body: JSON.stringify({
+                text: text,
+                username: "test",
+            }),
+        });
+
+        const audioSrc = await res.json().then((value) => value.src);
+        return audioSrc;
+    }
 
     function getNewTestId() {
         let newId = 0;
@@ -59,18 +78,22 @@
         return newId;
     }
 
-    function buildTest() {
-        //TODO:
-        //4. falta dar un preview del test y permitir guardarlo localmente
+    async function buildTest() {
+        loading = true;
+        //TODO:result un preview del test y permitir guardarlo localmente
         //5. permitir guardarlo en el servidor
         let newTestId = getNewTestId();
         let testCards = [];
         for (let i = 0; i < selectedCards.length; i++) {
-            let testSoundSource = cardsSounds[selectedCards[i].id];
+            // let testSoundSource = cardsSounds[selectedCards[i].id];
+            let soundFilename = await requestNewSound(
+                msgForTest[selectedCards[i].id]
+            ).then((value) => value);
             testCards.push({
                 cardId: selectedCards[i].id,
-                soundSrc: testSoundSource || 0,
-                selectable: testSoundSource ? true : false,
+                soundSrc: `${INCA_BAT_BACKEND_URL}/static/sounds/${soundFilename}`,
+                // soundSrc: testSoundSource || 0,
+                selectable: true,
                 msg: msgForTest[selectedCards[i].id],
             });
         }
@@ -86,6 +109,7 @@
         localTests.update(() => {
             return newLocalTests;
         });
+        done = true;
         return newTest;
     }
     console.log(getNewTestId());
@@ -93,10 +117,14 @@
 
 <center>
     <div>Test Creator</div>
+
     {#if done}
         <div>
-            {JSON.stringify(buildTest())}
+            Your test was succesfuly created, click on Menu to leave the Test
+            Creator
         </div>
+    {:else if loading}
+        <div>Wait few seconds while your test is creating</div>
     {:else if steps[step] == "zero"}
         <div>
             1. select cards to put in the test (show all the cards available)
@@ -136,11 +164,11 @@
             the game.
             {#each selectedCards as c}
                 <Card cardObject={c} preview={true} width={100} height={100} />
-                <label
+                <!-- <label
                     >Audio source: <input
                         bind:value={cardsSounds[c.id]}
                     /></label
-                >
+                > -->
                 <label
                     >Card message:<input bind:value={msgForTest[c.id]} />
                 </label>
@@ -150,7 +178,8 @@
         <div>4. Add a name for the test and save</div>
         <input bind:value={testname} />
     {:else if steps[step] == "three"}
-        Click on "Next" button to create test
+        Click on "Create" button to create test
+        <button id="create-button" on:click={buildTest}>Create</button>
     {/if}
 
     {#if !done}
@@ -160,7 +189,11 @@
                     >back</button
                 >
             {/if}
-            <button id="next-button" on:click={() => nextStep()}>Next</button>
+            {#if step != 3}
+                <button id="next-button" on:click={() => nextStep()}
+                    >Next</button
+                >
+            {/if}
         </div>
     {/if}
     <div>
