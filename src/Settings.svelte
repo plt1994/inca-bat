@@ -1,7 +1,10 @@
 <script>
     import Link from "./Link.svelte";
     import SettingsOption from "./SettingsOption.svelte";
+    import Footer from "./Footer.svelte";
     import { longpress } from "./longpress.js";
+    import { Col } from "sveltestrap";
+    import { ArrowRightShort, ArrowLeftShort } from "svelte-bootstrap-icons";
     import {
         nOfRepetitions,
         nOfCardsOnScreen,
@@ -57,23 +60,23 @@
 <div class="color">
     <SettingsOption name="Number of repetitions">
         <div>
-            <button on:click={() => increment(nOfRepetitions, 100)}> + </button>
-            <button> {$nOfRepetitions} </button>
             <button on:click={() => decrement(nOfRepetitions, 1)}> - </button>
+            <button> {$nOfRepetitions} </button>
+            <button on:click={() => increment(nOfRepetitions, 100)}> + </button>
         </div>
     </SettingsOption>
     <SettingsOption name="Cards on screen">
         <div>
-            <button on:click={() => increment(nOfCardsOnScreen, 5)}> + </button>
-            <button> {$nOfCardsOnScreen} </button>
             <button on:click={() => decrement(nOfCardsOnScreen, 1)}> - </button>
+            <button> {$nOfCardsOnScreen} </button>
+            <button on:click={() => increment(nOfCardsOnScreen, 5)}> + </button>
         </div>
     </SettingsOption>
     <SettingsOption name="Cards separation">
         <div>
-            <button on:click={() => increment(cardsSeparation, 10)}> + </button>
-            <button> {$cardsSeparation} </button>
             <button on:click={() => decrement(cardsSeparation, 0)}> - </button>
+            <button> {$cardsSeparation * 10}% </button>
+            <button on:click={() => increment(cardsSeparation, 10)}> + </button>
         </div>
     </SettingsOption>
     <SettingsOption name="Learner name">
@@ -96,13 +99,13 @@
             <input bind:value={$cardBgColor} />
         </div>
     </SettingsOption>
-    <SettingsOption name="Logging Style">
+    <!-- <SettingsOption name="Logging Style">
         <div>
             <button on:click={() => increment(loggingStyle, 1)}> + </button>
             <button> {logStyleStr[$loggingStyle]} </button>
             <button on:click={() => decrement(loggingStyle, 0)}> - </button>
         </div>
-    </SettingsOption>
+    </SettingsOption> -->
 
     <SettingsOption name="Time exit holding time">
         <div>
@@ -149,15 +152,19 @@
     </SettingsOption>
     <SettingsOption name="Current Feedback (Sound)">
         <div>
-            <button on:click={() => increment(currentFeedbackSound, 3, 1)}>
-                +
-            </button>
+            {#if $currentFeedbackSound > 0}
+                <button on:click={() => decrement(currentFeedbackSound, 0, 1)}>
+                    <ArrowLeftShort />
+                </button>
+            {/if}
             <button>
                 {feedbackSoundsOptions[$currentFeedbackSound].name}
             </button>
-            <button on:click={() => decrement(currentFeedbackSound, 0, 1)}>
-                -
-            </button>
+            {#if $currentFeedbackSound < 3}
+                <button on:click={() => increment(currentFeedbackSound, 3, 1)}>
+                    <ArrowRightShort />
+                </button>
+            {/if}
         </div>
     </SettingsOption>
     <SettingsOption name="Tests Logs">
@@ -172,11 +179,25 @@
         </div>
     </SettingsOption>
 </div>
+<div>
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+</div>
 
-<center>
-    <button class="color"><Link to="preview">Test Preview</Link> </button>
-    <button><Link to="menu">Go Back</Link> </button>
-</center>
+<Footer>
+    <Col xs="auto"><button><Link to="menu">Go Back</Link> </button></Col>
+    <Col xs="auto">
+        <center
+            ><button class="color"
+                ><Link to="preview">Test Preview</Link>
+            </button></center
+        >
+    </Col>
+</Footer>
 
 <style>
     .color {
