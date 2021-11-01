@@ -18,7 +18,9 @@
     "svelte": "^3.0.0"
   },
   "dependencies": {
+    "csv2table": "^0.1.2",
     "sirv-cli": "^1.0.0",
+    "svelte-csv": "^1.2.0",
     "svelte-navigator": "^3.1.5"
   }
 }
