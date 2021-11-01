@@ -1,11 +1,14 @@
 <script>
     import { moveToPage } from "./navigator";
     import { localLog } from "./stores";
+    let logs_ids = Object.keys($localLog).reverse();
 </script>
 
 <center><h1>Local Logs</h1></center>
 <div>
-    {#each Object.keys($localLog) as id}
+    <center><button on:click={() => moveToPage("menu")}>Go Back</button></center
+    >
+    {#each logs_ids as id}
         <div class="color">
             Test #{id}
             {#each $localLog[id] as line}
