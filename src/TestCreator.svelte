@@ -4,6 +4,7 @@
     import { localTests, username } from "./stores";
     import Link from "./Link.svelte";
     import Card from "./Card.svelte";
+    import { Col, Container, Row, Button } from "sveltestrap";
     let cards = getCards();
     let selectedCards = [];
     const steps = ["zero", "one", "two", "three"];
@@ -88,6 +89,7 @@
         let newTestId = getNewTestId();
         let testCards = [];
         for (let i = 0; i < selectedCards.length; i++) {
+            // Posible bug, se pueden hacer tests sin nada Selectable
             // let testSoundSource = cardsSounds[selectedCards[i].id];
             let soundFilename = await requestNewSound(
                 msgForTest[selectedCards[i].id]
@@ -138,27 +140,31 @@
         <!-- <select bind:value={selected_test_index} on:change={() => selectTestIndex()}> -->
         <div>
             <p>Cards available</p>
-            <div class="selectable-cards">
-                {#each cards as c}
+            <div class="selectable-cards container">
+                <Row>
                     <div class="card-box">
-                        <input
-                            class="check-card"
-                            type="checkbox"
-                            id={c.id}
-                            bind:group={selectedCards}
-                            value={c}
-                        />
-                        <label for={c.id}
-                            ><Card
-                                cardObject={c}
-                                preview={true}
-                                width={100}
-                                height={100}
-                            /></label
-                        >
+                        <CardCreator width={100} height={100} />
                     </div>
-                {/each}
-                <CardCreator width={100} height={100} />
+                    {#each cards as c}
+                        <div class="card-box">
+                            <input
+                                class="check-card"
+                                type="checkbox"
+                                id={c.id}
+                                bind:group={selectedCards}
+                                value={c}
+                            />
+                            <label for={c.id}
+                                ><Card
+                                    cardObject={c}
+                                    preview={true}
+                                    width={100}
+                                    height={100}
+                                /></label
+                            >
+                        </div>
+                    {/each}
+                </Row>
             </div>
         </div>
         <!-- <div>(add option to add new cards also)</div> -->
@@ -211,7 +217,7 @@
     .check-card {
         position: absolute;
         bottom: 0px;
-        right: 0px;
+        right: 10px;
     }
     .selectable-cards {
         display: inline-flex;
@@ -221,5 +227,6 @@
         width: min-content;
         height: min-content;
         margin: auto;
+        padding: 2px;
     }
 </style>
