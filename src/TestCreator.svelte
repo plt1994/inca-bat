@@ -134,12 +134,9 @@
     {:else if loading}
         <div>Wait few seconds while your test is creating</div>
     {:else if steps[step] == "zero"}
-        <div>
-            1. select cards to put in the test (show all the cards available)
-        </div>
+        <div>1. Select any number of cards to put in the test</div>
         <!-- <select bind:value={selected_test_index} on:change={() => selectTestIndex()}> -->
         <div>
-            <p>Cards available</p>
             <div class="selectable-cards container">
                 <Row>
                     <div class="card-box">
@@ -170,10 +167,8 @@
         <!-- <div>(add option to add new cards also)</div> -->
     {:else if steps[step] == "one"}
         <div>
-            2. Select an audio source for each card chosen in step 1, if you
-            don't add a source link, there won't be any sound for that card in
-            current test, and it won't be part of the "choosable" cards during
-            the game.
+            2. Type an message to describe the card. It will generates an audio
+            file.
             {#each selectedCards as c}
                 <Card cardObject={c} preview={true} width={100} height={100} />
                 <!-- <label
