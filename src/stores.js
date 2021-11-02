@@ -42,8 +42,9 @@ export const cardW = writable(Number(storedCardW) || 160)
 export const localLog = writable(JSON.parse(storedLocalLog || "{}"))
 export const learnerMode = writable(false)
 export const page = writable("menu")
-export const bgColor = writable(storedBackgroundColor || "#fff")
-export const cardBgColor = writable(storedCardBackgroundColor || "#fff")
+export const bgColor = writable(storedBackgroundColor || "white")
+export const cardBgColor = writable(storedCardBackgroundColor || "white")
+export const timeFeedbackDelay = writable(1500)
 
 //local Tests
 export const localTests = writable(JSON.parse(storedLocalTests || "[]") || [{

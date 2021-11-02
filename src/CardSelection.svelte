@@ -17,6 +17,7 @@
 		subjectName,
 		username,
 		learnerMode,
+		timeFeedbackDelay,
 	} from "./stores.js";
 	import { moveToPage } from "./navigator";
 	import { longpress } from "./longpress.js";
@@ -49,7 +50,7 @@
 	let correct_choice;
 	let separation;
 	let textHoldToExit = "Hold to exit";
-	let delayVoiceTime = 1000;
+	let delayVoiceTime = $timeFeedbackDelay;
 	silenceVoice.subscribe((value) => {
 		soundIsActive = !value;
 	});

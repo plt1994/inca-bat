@@ -22,11 +22,27 @@
         localLog,
         bgColor,
         cardBgColor,
+        timeFeedbackDelay,
     } from "./stores.js";
     const logStyleStr = {
         0: "Verbose (every selection)",
         1: "Simple (only results)",
     };
+    const colors = [
+        "white",
+        "silver",
+        "gray",
+        "black",
+        "red",
+        "maroon",
+        "yellow",
+        "olive",
+        "lime",
+        "green",
+        "aqua",
+        "teal",
+        "blue",
+    ];
     import { feedbackSoundsOptions } from "./sounds";
     function increment(option, max, step = 1) {
         option.update((n) => {
@@ -93,11 +109,35 @@
         <div>
             <input bind:value={$bgColor} />
         </div>
+        <center>
+            <div>
+                {#each colors as color}
+                    <button
+                        style="background-color:{color}"
+                        class="button-color-selector"
+                        id={color}
+                        on:click={() => ($bgColor = color)}
+                    />
+                {/each}
+            </div>
+        </center>
     </SettingsOption>
     <SettingsOption name="Card background color (if transparent)">
         <div>
             <input bind:value={$cardBgColor} />
         </div>
+        <center>
+            <div>
+                {#each colors as color}
+                    <button
+                        style="background-color:{color}"
+                        class="button-color-selector"
+                        id={color}
+                        on:click={() => ($cardBgColor = color)}
+                    />
+                {/each}
+            </div>
+        </center>
     </SettingsOption>
     <!-- <SettingsOption name="Logging Style">
         <div>
@@ -107,11 +147,23 @@
         </div>
     </SettingsOption> -->
 
+    <SettingsOption name="Feedback time delay">
+        <div>
+            <button on:click={() => decrement(timeFeedbackDelay, 0, 500)}>
+                -
+            </button>
+            <button> {$timeFeedbackDelay / 1000} seconds </button>
+            <button on:click={() => increment(timeFeedbackDelay, 3500, 500)}>
+                +
+            </button>
+        </div>
+    </SettingsOption>
+
     <SettingsOption name="Time exit holding time">
         <div>
-            <button on:click={() => increment(timeHoldToExit, 5)}> + </button>
-            <button> {$timeHoldToExit} seconds </button>
             <button on:click={() => decrement(timeHoldToExit, 0)}> - </button>
+            <button> {$timeHoldToExit} seconds </button>
+            <button on:click={() => increment(timeHoldToExit, 5)}> + </button>
         </div>
     </SettingsOption>
 
@@ -131,16 +183,16 @@
     </SettingsOption>
     <SettingsOption name="Card height">
         <div>
-            <button on:click={() => increment(cardH, 1000, 10)}> + </button>
-            <button> {$cardH} pixels </button>
             <button on:click={() => decrement(cardH, 10, 10)}> - </button>
+            <button> {$cardH} pixels </button>
+            <button on:click={() => increment(cardH, 1000, 10)}> + </button>
         </div>
     </SettingsOption>
     <SettingsOption name="Card width">
         <div>
-            <button on:click={() => increment(cardW, 1000, 10)}> + </button>
-            <button> {$cardW} pixels </button>
             <button on:click={() => decrement(cardW, 10, 10)}> - </button>
+            <button> {$cardW} pixels </button>
+            <button on:click={() => increment(cardW, 1000, 10)}> + </button>
         </div>
     </SettingsOption>
     <SettingsOption name="Card message (voice)">
@@ -200,6 +252,10 @@
 </Footer>
 
 <style>
+    .button-color-selector {
+        width: 35px;
+        height: 35px;
+    }
     .color {
         background-color: rgb(195, 207, 207);
         display: grid;
