@@ -90,7 +90,7 @@
             />
         </div>
         <div class="align">
-            {#if isLoaded}
+            {#if isLoaded && cardName}
                 <button on:click={addNewCard} class="button-style">Save!</button
                 >
             {/if}
