@@ -30,10 +30,8 @@
             res.push(
                 `[${line.Date}] [${line.TestName}] [${i + 1}]/[${
                     data.length
-                }]: (${
-                    line["S+"] == line[line.BPC] ? "correct" : "incorrect"
-                }) [${line.Subject}] chose [${
-                    line[line.BPC]
+                }]: (${line.R}) [${line.Learner}] chose [${
+                    line.PC_name
                 }] over [${options}] in a time of [${line["TimeR"]} s]`
             );
         });
@@ -54,25 +52,41 @@
                 "Test #": "",
                 TestName: "",
                 "S+": "",
-                Subject: "",
-                Owner: "",
+                CardAudioMsg: "",
+                Learner: "",
+                CG: "",
                 C_0: "",
                 C_1: "",
                 C_2: "",
                 C_3: "",
                 C_4: "",
-                BPC: "",
+                PC_name: "",
+                PC: "",
                 R: "",
                 Date: "",
                 TimeR: "",
+                BgColor: "",
+                CardBg: "",
+                FbDelay: "",
+                CardText: "",
+                Voice: "",
+                FbMsg: "",
+                CardH: "",
+                CardW: "",
+                CardSeparation: "",
+                Annotations: "",
             },
         ];
         logs_ids.forEach((id) => {
-            allDataJSON.push(JSON.parse($localLog[id][0]));
+            let settings_data = JSON.parse($localLog[id][2] || "{}");
+            let data = JSON.parse($localLog[id][0]);
+            data.forEach((line) => {
+                line = Object.assign(line, settings_data);
+            });
+            allDataJSON.push(data);
         });
         return allDataJSON.flat(1);
     }
-
     function showAllTables() {
         let allDataJSON = parseLogsToJSON();
         let data = JSON.stringify(allDataJSON);
@@ -102,10 +116,10 @@
             <p>{$localLog[id][1]}</p>
             <div class="toggle-buttons">
                 <button on:click={() => toggleTable(id)}
-                    >{showTableById[id] ? "Hide" : "Show"} Table</button
+                    >{showTableById[id] ? "Hide" : "Show"} Summary Table</button
                 >
                 <button on:click={() => toggleData(id)}
-                    >{showDataById[id] ? "Hide" : "Show"} Data</button
+                    >{showDataById[id] ? "Hide" : "Show"} Summary Data</button
                 >
             </div>
             {#if showTableById[id]}

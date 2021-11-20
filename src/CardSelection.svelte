@@ -18,6 +18,10 @@
 		username,
 		learnerMode,
 		timeFeedbackDelay,
+		bgColor,
+		cardBgColor,
+		cardH,
+		cardW,
 	} from "./stores.js";
 	import { moveToPage } from "./navigator";
 	import { longpress } from "./longpress.js";
@@ -138,18 +142,20 @@
 		card_selection_details_log["S+"] = getCard(
 			correct_choice.cardId
 		).cardName;
-		card_selection_details_log["Subject"] = $subjectName;
-		card_selection_details_log["Owner"] = $username;
+		card_selection_details_log["CardAudioMsg"] = correct_choice.msg;
+		card_selection_details_log["Learner"] = $subjectName;
+		card_selection_details_log["CG"] = $username;
 		for (let index = 0; index < cardsOnScreen.length; index++) {
 			const element = cardsOnScreen[index];
 			card_selection_details_log[`C_${index}`] = getCard(
 				element.cardId
 			).cardName;
 		}
+		card_selection_details_log["PC_name"] = getCard(chosen.id).cardName;
 		for (let index = 0; index < cardsOnScreen.length; index++) {
 			const element = cardsOnScreen[index];
 			if (element.cardId == chosen.id) {
-				card_selection_details_log["BPC"] = `C_${index}`;
+				card_selection_details_log["PC"] = index;
 			}
 		}
 		card_selection_details_log["R"] =
@@ -206,6 +212,20 @@
 		][1] = `Summary: correct: ${n_of_correct}; incorrect: ${n_of_incorrect} | feedback-sound: ${feedbackSoundStr} | Accuracy: ${
 			(100 * n_of_correct) / n_of_test_total
 		}%`;
+		let settings_for_current_test = {};
+		settings_for_current_test["BgColor"] = $bgColor;
+		settings_for_current_test["CardBg"] = $cardBgColor;
+		settings_for_current_test["FbDelay"] = $timeFeedbackDelay;
+		settings_for_current_test["CardText"] = $showCardText;
+		settings_for_current_test["Voice"] = !$silenceVoice;
+		settings_for_current_test["FbMsg"] =
+			feedbackSoundsOptions[$currentFeedbackSound].name;
+		settings_for_current_test["CardH"] = $cardH;
+		settings_for_current_test["CardW"] = $cardW;
+		settings_for_current_test["CardSeparation"] = `${
+			$cardsSeparation * 10
+		}%`;
+		newLocalLog[k][2] = JSON.stringify(settings_for_current_test);
 		localLog.update(() => {
 			return newLocalLog;
 		});
