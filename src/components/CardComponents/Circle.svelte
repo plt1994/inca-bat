@@ -4,9 +4,9 @@
     export let w = 160;
     export let h = 160;
     export let radius = 20;
+    export let color = "black";
     let cx = x * (w / 4);
     let cy = y * (h / 4);
-    let base_color_dot = "black";
 </script>
 
-<circle {cx} {cy} r={radius} fill={base_color_dot} />
+<circle {cx} {cy} r={radius} fill={color} />

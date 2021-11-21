@@ -1,5 +1,5 @@
 <script>
-    import { cardH, cardW, cardBgColor } from "stores/stores.js";
+    import { cardH, cardW, cardBgColor, fgColor } from "stores/stores.js";
     export let width = 160;
     export let height = 160;
     export let preview = false;
@@ -8,7 +8,7 @@
     export let x = "50%";
     export let y = "50%";
     export let size_r = 0.8;
-    let fillColor = "black";
+    let fillColor = $fgColor;
 
     if (!preview) {
         cardH.subscribe((value) => {

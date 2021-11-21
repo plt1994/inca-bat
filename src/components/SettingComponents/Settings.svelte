@@ -20,6 +20,7 @@
         currentFeedbackSound,
         localLog,
         bgColor,
+        fgColor,
         cardBgColor,
         timeFeedbackDelay,
     } from "stores/stores.js";
@@ -129,6 +130,23 @@
                         class="button-color-selector"
                         id={color}
                         on:click={() => ($cardBgColor = color)}
+                    />
+                {/each}
+            </div>
+        </center>
+    </SettingsOption>
+    <SettingsOption name="foreground color (only for dice and text cards)">
+        <div>
+            <input bind:value={$fgColor} />
+        </div>
+        <center>
+            <div>
+                {#each colors as color}
+                    <button
+                        style="background-color:{color}"
+                        class="button-color-selector"
+                        id={color}
+                        on:click={() => ($fgColor = color)}
                     />
                 {/each}
             </div>
