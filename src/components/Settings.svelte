@@ -2,7 +2,7 @@
     import Link from "./Link.svelte";
     import SettingsOption from "./SettingsOption.svelte";
     import Footer from "./Footer.svelte";
-    import { longpress } from "../utils/longpress.js";
+    import { longpress } from "utils/longpress.js";
     import { Col } from "sveltestrap";
     import { ArrowRightShort, ArrowLeftShort } from "svelte-bootstrap-icons";
     import {
@@ -22,8 +22,8 @@
         bgColor,
         cardBgColor,
         timeFeedbackDelay,
-    } from "../stores.js";
-    import { feedbackSoundsOptions } from "../controller/sounds";
+    } from "stores/stores.js";
+    import { feedbackSoundsOptions } from "controller/sounds.js";
     const colors = [
         "white",
         "silver",

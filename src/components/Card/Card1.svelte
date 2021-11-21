@@ -2,7 +2,7 @@
 <script>
     export let id = 1;
     // export let mode = "dot"; // simpleDice, fancyDic
-    import { cardH, cardW, cardBgColor } from "../stores";
+    import { cardH, cardW, cardBgColor } from "stores/stores.js";
     import Circle from "./Circle.svelte";
     export let base_color_face = $cardBgColor;
     export let base_color_dot = "black";

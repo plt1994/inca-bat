@@ -1,6 +1,6 @@
 <script>
 	import Card from "./Card.svelte";
-	import Header from "./Header.svelte";
+	import Header from "components/Header.svelte";
 	import { jsonToCSV } from "svelte-csv";
 	import { BasicTable } from "csv2table";
 	import {
@@ -22,14 +22,14 @@
 		cardBgColor,
 		cardH,
 		cardW,
-	} from "../stores.js";
-	import { moveToPage } from "../utils/navigator";
-	import { longpress } from "../utils/longpress.js";
+	} from "stores/stores.js";
+	import { moveToPage } from "utils/navigator.js";
+	import { longpress } from "utils/longpress.js";
 	import {
 		feedbackSounds,
 		feedbackSoundsOptions,
-	} from "../controller/sounds";
-	import { getTest, getCard } from "../controller/controller";
+	} from "controller/sounds.js";
+	import { getTest, getCard } from "controller/controller.js";
 	export let preview = false;
 	let soundIsActive = true;
 	let duration;

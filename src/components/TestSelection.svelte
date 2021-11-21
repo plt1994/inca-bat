@@ -1,7 +1,7 @@
 <script>
     import TestDisplayer from "./TestDisplayer.svelte";
     import Link from "./Link.svelte";
-    import { moveToPage } from "../utils/navigator";
+    import { moveToPage } from "utils/navigator.js";
     import { Navbar } from "sveltestrap";
 </script>
 

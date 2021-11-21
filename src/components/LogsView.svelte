@@ -1,6 +1,6 @@
 <script>
-    import { moveToPage } from "../utils/navigator";
-    import { localLog } from "../stores";
+    import { moveToPage } from "utils/navigator.js";
+    import { localLog } from "stores/stores.js";
     import { jsonToCSV, CSVDownloader } from "svelte-csv";
     import { BasicTable } from "csv2table";
     let logs_ids = Object.keys($localLog).reverse();

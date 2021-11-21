@@ -1,6 +1,6 @@
 import { tests } from "./tests.js";
 import { cards } from "./cards"
-import { localCards, localTests } from "../stores";
+import { localCards, localTests } from "stores/stores.js";
 
 let allCards;
 let allTests;

@@ -1,6 +1,6 @@
 <script>
-    import Link from "./Link.svelte";
-    import { localCards } from "../stores";
+    import Link from "components/Link.svelte";
+    import { localCards } from "stores/stores.js";
     import EmojiSelector from "svelte-emoji-selector";
     export let createNew = false;
     // export let width = 100;

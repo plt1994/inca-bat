@@ -1,7 +1,7 @@
 <!-- Fullscreen.svelte -->
 <script>
   import { onMount } from "svelte";
-  import { learnerMode, bgColor } from "../stores";
+  import { learnerMode, bgColor } from "stores/stores.js";
 
   // define initial component state
   let isFull = false;

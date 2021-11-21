@@ -1,7 +1,7 @@
 <script>
     import CardPreset from "./Card1.svelte";
     import CardCustom from "./Card2.svelte";
-    import { getCard } from "../controller/controller";
+    import { getCard } from "controller/controller.js";
     export let cardObject = null;
     export let testCard = {
         cardId: 0,

@@ -1,5 +1,5 @@
 <script>
-    import { page } from "../stores";
+    import { page } from "stores/stores.js";
     export let to = "main";
     export const moveToPage = () => {
         page.update(() => {
