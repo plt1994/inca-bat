@@ -95,5 +95,17 @@ export const cards = [
             mode: "simple",
             n: 9
         },
+    },
+    {
+        id: 11,
+        cardName: "letter A",
+        cardType: "textCard",
+        details: {
+            font: "Tahoma",
+            size: "0.8",
+            text: "A",
+            x: "50%",
+            y: "50%"
+        },
     }
 ]
