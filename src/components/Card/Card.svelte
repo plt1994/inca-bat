@@ -1,6 +1,6 @@
 <script>
-    import CardPreset from "./Card1.svelte";
-    import CardCustom from "./Card2.svelte";
+    import DiceCard from "./DiceCard.svelte";
+    import ImageCard from "./ImageCard.svelte";
     import { getCard } from "controller/controller.js";
     export let cardObject = null;
     export let testCard = {
@@ -17,24 +17,24 @@
 <div>
     {#if cardObject}
         {#if cardObject.cardType == "imageCard"}
-            <CardCustom
+            <ImageCard
                 imgSrc={cardObject.details.imgSrc}
                 {preview}
                 {height}
                 {width}
             />
         {:else if cardObject.cardType == "diceCard"}
-            <CardPreset id={cardObject.details.n} {preview} {height} {width} />
+            <DiceCard id={cardObject.details.n} {preview} {height} {width} />
         {/if}
     {:else if getCard(testCard.cardId).cardType == "imageCard"}
-        <CardCustom
+        <ImageCard
             imgSrc={getCard(testCard.cardId).details.imgSrc}
             {preview}
             {height}
             {width}
         />
     {:else if getCard(testCard.cardId).cardType == "diceCard"}
-        <CardPreset
+        <DiceCard
             id={getCard(testCard.cardId).details.n}
             {preview}
             {height}
