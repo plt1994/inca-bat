@@ -1,5 +1,5 @@
 <script>
-    import { Navbar, NavbarBrand, Col, Container, Row } from "sveltestrap";
+    import { Navbar, Container, Row } from "sveltestrap";
     let color = "light";
 </script>
 

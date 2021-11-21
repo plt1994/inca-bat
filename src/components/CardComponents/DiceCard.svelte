@@ -5,7 +5,7 @@
     import { cardH, cardW, cardBgColor } from "stores/stores.js";
     import Circle from "./Circle.svelte";
     export let base_color_face = $cardBgColor;
-    export let base_color_dot = "black";
+    // export let base_color_dot = "black";
     export let width = 160;
     export let height = 160;
     export let preview = false;
@@ -98,9 +98,9 @@
         stroke-width: 5;
         opacity: 0.9;
     }
-    circle {
+    /* circle {
         stroke: black;
         stroke-width: 0;
         opacity: 1;
-    }
+    } */
 </style>

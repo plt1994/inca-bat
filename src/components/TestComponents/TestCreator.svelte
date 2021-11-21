@@ -1,9 +1,9 @@
 <script>
     import { getCards } from "controller/controller.js";
-    import CardCreator from "./Card/CardCreator.svelte";
+    import CardCreator from "components/CardComponents/CardCreator.svelte";
     import { localTests, username } from "stores/stores.js";
-    import Link from "./Link.svelte";
-    import Card from "./Card/Card.svelte";
+    import Link from "components/Utils/Link.svelte";
+    import Card from "components/CardComponents/Card.svelte";
     import { Row } from "sveltestrap";
     let cards = getCards();
     let selectedCards = [];

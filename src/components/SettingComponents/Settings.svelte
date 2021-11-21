@@ -1,7 +1,7 @@
 <script>
-    import Link from "./Link.svelte";
+    import Link from "components/Utils/Link.svelte";
     import SettingsOption from "./SettingsOption.svelte";
-    import Footer from "./Footer.svelte";
+    import Footer from "components/Footer.svelte";
     import { longpress } from "utils/longpress.js";
     import { Col } from "sveltestrap";
     import { ArrowRightShort, ArrowLeftShort } from "svelte-bootstrap-icons";
