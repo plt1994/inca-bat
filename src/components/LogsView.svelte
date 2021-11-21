@@ -1,5 +1,5 @@
 <script>
-    import { moveToPage } from "../navigator";
+    import { moveToPage } from "../utils/navigator";
     import { localLog } from "../stores";
     import { jsonToCSV, CSVDownloader } from "svelte-csv";
     import { BasicTable } from "csv2table";

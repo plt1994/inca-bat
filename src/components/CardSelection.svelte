@@ -23,10 +23,13 @@
 		cardH,
 		cardW,
 	} from "../stores.js";
-	import { moveToPage } from "../navigator";
-	import { longpress } from "../longpress.js";
-	import { feedbackSounds, feedbackSoundsOptions } from "../sounds";
-	import { getTest, getCard } from "../controller";
+	import { moveToPage } from "../utils/navigator";
+	import { longpress } from "../utils/longpress.js";
+	import {
+		feedbackSounds,
+		feedbackSoundsOptions,
+	} from "../controller/sounds";
+	import { getTest, getCard } from "../controller/controller";
 	export let preview = false;
 	let soundIsActive = true;
 	let duration;

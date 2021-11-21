@@ -1,7 +1,7 @@
 <script>
     import { selectedTest } from "../stores.js";
     import Card from "./Card.svelte";
-    import { getTests, getCard, getTest } from "../controller";
+    import { getTests, getCard, getTest } from "../controller/controller";
     let tests = getTests();
     let sounds = {};
     function playSound(card) {

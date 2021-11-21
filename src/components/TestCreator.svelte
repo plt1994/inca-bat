@@ -1,5 +1,5 @@
 <script>
-    import { getCards } from "../controller";
+    import { getCards } from "../controller/controller";
     import CardCreator from "./CardCreator.svelte";
     import { localTests, username } from "../stores";
     import Link from "./Link.svelte";

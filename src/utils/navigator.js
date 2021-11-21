@@ -1,4 +1,4 @@
-import { page } from "./stores"
+import { page } from "../stores"
 
 export function moveToPage(to) {
     page.update(() => {

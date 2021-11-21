@@ -1,5 +1,5 @@
 <script>
-    import { moveToPage } from "../navigator";
+    import { moveToPage } from "../utils/navigator";
     import Header from "./Header.svelte";
 </script>
 
