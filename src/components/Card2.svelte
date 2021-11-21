@@ -1,5 +1,5 @@
 <script>
-    import { cardH, cardW, nOfCardsOnScreen, cardBgColor } from "./stores";
+    import { cardH, cardW, nOfCardsOnScreen, cardBgColor } from "../stores";
     export let imgSrc = "images/default.png";
     export let width = 160;
     export let height = 160;

@@ -1,10 +1,10 @@
 <script>
     import Link from "./Link.svelte";
-    import { localCards } from "./stores";
+    import { localCards } from "../stores";
     import EmojiSelector from "svelte-emoji-selector";
     export let createNew = false;
-    export let width = 100;
-    export let height = 100;
+    // export let width = 100;
+    // export let height = 100;
     let imgSrc;
     let isLoaded = false;
     let imgCode;

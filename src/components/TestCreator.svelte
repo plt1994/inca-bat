@@ -1,27 +1,23 @@
 <script>
-    import { getCards } from "./controller";
+    import { getCards } from "../controller";
     import CardCreator from "./CardCreator.svelte";
-    import { localTests, username } from "./stores";
+    import { localTests, username } from "../stores";
     import Link from "./Link.svelte";
     import Card from "./Card.svelte";
-    import { Col, Container, Row, Button } from "sveltestrap";
+    import { Row } from "sveltestrap";
     let cards = getCards();
     let selectedCards = [];
     const steps = ["zero", "one", "two", "three"];
     let step = 0;
     let done = false;
     let loading = false;
-    let cardsSounds = {};
     let msgForTest = {};
     let testname;
-    let result = null;
+    const INCA_BAT_BACKEND_URL = "https://buho.dcc.uchile.cl/inca-bat-api";
     function nextStep() {
         if (selectedCards.length < 1 && step == 0) {
             return;
         }
-        // if (Object.keys(cardsSounds).length < 1 && step == 1) {
-        //     return;
-        // }
         if (step < 4) {
             step++;
         }
@@ -34,20 +30,6 @@
             step--;
         }
     }
-    function addSoundsToDb(soundsObject) {
-        let lastKey = 0;
-        let soundLibrary = {};
-        let testSoundsReferenced = {};
-        Object.keys(soundsObject).forEach((key) => {
-            let newKey = lastKey++;
-            soundLibrary[newKey] = soundsObject[key];
-            testSoundsReferenced[key] = newKey;
-        });
-        console.log(JSON.stringify(soundLibrary));
-        console.log(JSON.stringify(testSoundsReferenced));
-        return testSoundsReferenced;
-    }
-    const INCA_BAT_BACKEND_URL = "https://buho.dcc.uchile.cl/inca-bat-api";
     async function requestNewSound(text) {
         if (!text) {
             return;
@@ -119,7 +101,6 @@
         done = true;
         return newTest;
     }
-    console.log(getNewTestId());
 </script>
 
 <center>
@@ -135,12 +116,11 @@
         <div>Wait few seconds while your test is creating</div>
     {:else if steps[step] == "zero"}
         <div>1. Select any number of cards to put in the test</div>
-        <!-- <select bind:value={selected_test_index} on:change={() => selectTestIndex()}> -->
         <div>
             <div class="selectable-cards container">
                 <Row>
                     <div class="card-box">
-                        <CardCreator width={100} height={100} />
+                        <CardCreator />
                     </div>
                     {#each cards as c}
                         <div class="card-box">
@@ -171,11 +151,6 @@
             file.
             {#each selectedCards as c}
                 <Card cardObject={c} preview={true} width={100} height={100} />
-                <!-- <label
-                    >Audio source: <input
-                        bind:value={cardsSounds[c.id]}
-                    /></label
-                > -->
                 <label
                     >Card message:<input bind:value={msgForTest[c.id]} />
                 </label>

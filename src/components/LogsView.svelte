@@ -1,6 +1,6 @@
 <script>
-    import { moveToPage } from "./navigator";
-    import { localLog } from "./stores";
+    import { moveToPage } from "../navigator";
+    import { localLog } from "../stores";
     import { jsonToCSV, CSVDownloader } from "svelte-csv";
     import { BasicTable } from "csv2table";
     let logs_ids = Object.keys($localLog).reverse();
@@ -87,10 +87,12 @@
         });
         return allDataJSON.flat(1);
     }
-    function showAllTables() {
-        let allDataJSON = parseLogsToJSON();
-        let data = JSON.stringify(allDataJSON);
-        return showCSVData(data);
+    function dateInOrgmodeFormat() {
+        let d = new Date();
+        return d.toLocaleString("sv").replace(" ", "T").replaceAll(":", "-");
+    }
+    function filename() {
+        return `InCA-BAT-Logs-${dateInOrgmodeFormat()}`;
     }
 </script>
 
@@ -103,7 +105,7 @@
         ><button on:click={() => moveToPage("menu")}>Go Back</button>
         <CSVDownloader
             data={parseLogsToJSON()}
-            filename={"filename"}
+            filename={filename()}
             bom={true}
             type={"button"}
         >

@@ -1,13 +1,13 @@
 <script>
-	import Fullscreen from "./Fullscreen.svelte";
-	import About from "./About.svelte";
-	import CardSelection from "./CardSelection.svelte";
-	import TestSelection from "./TestSelection.svelte";
-	import Menu from "./Menu.svelte";
-	import Settings from "./Settings.svelte";
-	import LogsView from "./LogsView.svelte";
-	import TestCreator from "./TestCreator.svelte";
-	import CardCreator from "./CardCreator.svelte";
+	import Fullscreen from "./components/Fullscreen.svelte";
+	import About from "./components/About.svelte";
+	import CardSelection from "./components/CardSelection.svelte";
+	import TestSelection from "./components/TestSelection.svelte";
+	import Menu from "./components/Menu.svelte";
+	import Settings from "./components/Settings.svelte";
+	import LogsView from "./components/LogsView.svelte";
+	import TestCreator from "./components/TestCreator.svelte";
+	import CardCreator from "./components/CardCreator.svelte";
 	import { page } from "./stores";
 	// añadir logo de InCA BAT
 </script>

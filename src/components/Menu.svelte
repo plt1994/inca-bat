@@ -37,7 +37,6 @@
     }
 
     .buttonclass {
-        /* background-color: rgb(80, 75, 83); */
         font-size: 10vw;
     }
 </style>

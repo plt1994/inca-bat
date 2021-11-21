@@ -2,7 +2,7 @@
     import Link from "./Link.svelte";
     import SettingsOption from "./SettingsOption.svelte";
     import Footer from "./Footer.svelte";
-    import { longpress } from "./longpress.js";
+    import { longpress } from "../longpress.js";
     import { Col } from "sveltestrap";
     import { ArrowRightShort, ArrowLeftShort } from "svelte-bootstrap-icons";
     import {
@@ -11,7 +11,6 @@
         cardsSeparation,
         subjectName,
         username,
-        loggingStyle,
         timeHoldToExit,
         showTitle,
         showCardText,
@@ -23,11 +22,8 @@
         bgColor,
         cardBgColor,
         timeFeedbackDelay,
-    } from "./stores.js";
-    const logStyleStr = {
-        0: "Verbose (every selection)",
-        1: "Simple (only results)",
-    };
+    } from "../stores.js";
+    import { feedbackSoundsOptions } from "../sounds";
     const colors = [
         "white",
         "silver",
@@ -43,7 +39,6 @@
         "teal",
         "blue",
     ];
-    import { feedbackSoundsOptions } from "./sounds";
     function increment(option, max, step = 1) {
         option.update((n) => {
             if (n >= max) {

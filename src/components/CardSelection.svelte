@@ -22,11 +22,11 @@
 		cardBgColor,
 		cardH,
 		cardW,
-	} from "./stores.js";
-	import { moveToPage } from "./navigator";
-	import { longpress } from "./longpress.js";
-	import { feedbackSounds, feedbackSoundsOptions } from "./sounds";
-	import { getTest, getCard } from "./controller";
+	} from "../stores.js";
+	import { moveToPage } from "../navigator";
+	import { longpress } from "../longpress.js";
+	import { feedbackSounds, feedbackSoundsOptions } from "../sounds";
+	import { getTest, getCard } from "../controller";
 	export let preview = false;
 	let soundIsActive = true;
 	let duration;
@@ -133,8 +133,6 @@
 			":" +
 			today.getSeconds();
 		var ISODate = date + " " + time;
-		var current = n_of_correct + n_of_incorrect;
-		var options = cardsOnScreenStr;
 		let card_selection_details_log = {};
 		let k = Object.keys($localLog).length;
 		card_selection_details_log["Test #"] = k;
@@ -170,7 +168,6 @@
 		//how to get current options?
 		//what if i have more than one option to select?
 		touchable = false;
-		// console.log(id.cardId, correct_choice.cardId)
 		if (chosenCard.cardId == correct_choice.cardId) {
 			correctSound.play();
 			n_of_correct += 1;
@@ -187,7 +184,6 @@
 		setTimeout(function () {
 			correctN = Math.floor(Math.random() * nOfSelectableCards);
 			correct_choice = selectableCards[correctN];
-			//TODO: poner solo dos cartas y no todas
 			cards = shuffle(current_test.cards);
 			setCurrentCardsOnScreen();
 			if (soundIsActive) {
