@@ -49,6 +49,7 @@
     function parseLogsToJSON() {
         let allDataJSON = [
             {
+                "Session #": "",
                 "Test #": "",
                 TestName: "",
                 "S+": "",
@@ -67,6 +68,7 @@
                 TimeR: "",
                 BgColor: "",
                 CardBg: "",
+                CardFg: "",
                 FbDelay: "",
                 CardText: "",
                 Voice: "",

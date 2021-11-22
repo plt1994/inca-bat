@@ -103,7 +103,7 @@
     {#if createNew}
         <h1>Card Creator</h1>
         {#if !cardType}
-            <div>Seleciona el tipo de carta a crear</div>
+            <div>Select the type of card to create</div>
             <button on:click={() => (cardType = "imageCard")}>Emoji Card</button
             >
             <button on:click={() => (cardType = "textCard")}>Text Card</button>
@@ -205,8 +205,10 @@
             <Card cardObject={textCardObject} {width} {height} />
             <div class="align">
                 {#if textCardObject.details.text && cardName}
-                    <button on:click={addNewTextCard} class="button-style"
-                        >Save!</button
+                    <Link to="test_creator"
+                        ><button on:click={addNewTextCard} class="button-style"
+                            >Save!</button
+                        ></Link
                     >
                 {/if}
             </div>

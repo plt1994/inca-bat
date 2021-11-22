@@ -22,6 +22,7 @@
 		cardBgColor,
 		cardH,
 		cardW,
+		fgColor,
 	} from "stores/stores.js";
 	import { moveToPage } from "utils/navigator.js";
 	import { longpress } from "utils/longpress.js";
@@ -138,7 +139,8 @@
 		var ISODate = date + " " + time;
 		let card_selection_details_log = {};
 		let k = Object.keys($localLog).length;
-		card_selection_details_log["Test #"] = k;
+		card_selection_details_log["Session #"] = k;
+		card_selection_details_log["Test #"] = n_of_correct + n_of_incorrect;
 		card_selection_details_log["TestName"] = current_test.name;
 		card_selection_details_log["S+"] = getCard(
 			correct_choice.cardId
@@ -214,6 +216,7 @@
 		let settings_for_current_test = {};
 		settings_for_current_test["BgColor"] = $bgColor;
 		settings_for_current_test["CardBg"] = $cardBgColor;
+		settings_for_current_test["CardFg"] = $fgColor;
 		settings_for_current_test["FbDelay"] = $timeFeedbackDelay;
 		settings_for_current_test["CardText"] = $showCardText;
 		settings_for_current_test["Voice"] = !$silenceVoice;
