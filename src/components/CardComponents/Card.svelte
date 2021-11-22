@@ -55,6 +55,10 @@
     {:else if getCard(testCard.cardId).cardType == "textCard"}
         <TextCard
             textMsg={getCard(testCard.cardId).details.text}
+            x={getCard(testCard.cardId).details.x}
+            y={getCard(testCard.cardId).details.y}
+            size_r={getCard(testCard.cardId).details.size_r}
+            fontFamily={getCard(testCard.cardId).details.fontFamily}
             {preview}
             {height}
             {width}

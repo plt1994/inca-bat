@@ -43,6 +43,6 @@
         text-anchor="middle"
         fill={fillColor}
         font-family={fontFamily}
-        font-size={Math.min(width, height) * size_r}>{textMsg}</text
+        font-size={height * size_r}>{textMsg}</text
     >
 </svg>
