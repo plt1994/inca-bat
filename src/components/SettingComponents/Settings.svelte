@@ -1,6 +1,7 @@
 <script>
     import Link from "components/Utils/Link.svelte";
     import SettingsOption from "./SettingsOption.svelte";
+    import Header from "components/Header.svelte";
     import Footer from "components/Footer.svelte";
     import { longpress } from "utils/longpress.js";
     import { Col } from "sveltestrap";
@@ -68,7 +69,7 @@
     }
 </script>
 
-<center><h1>Settings</h1></center>
+<center><Header title="Settings" /></center>
 <div class="color">
     <SettingsOption name="Number of repetitions">
         <div>
@@ -270,7 +271,7 @@
         height: 35px;
     }
     .color {
-        background-color: rgb(195, 207, 207);
+        background-color: #a0c9c0;
         display: grid;
         place-items: center;
         margin-left: 10%;

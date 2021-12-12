@@ -147,7 +147,7 @@
 
 <style>
     .color {
-        background-color: rgb(195, 207, 207);
+        background-color: #a0c9c0;
         display: grid;
         place-items: center;
         margin-left: 10%;

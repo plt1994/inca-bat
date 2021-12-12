@@ -12,6 +12,11 @@
 </script>
 
 <meta name="viewport" content="width=device-width, user-scalable=no" />
+<link
+	rel="stylesheet"
+	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
+/>
+<meta charset="“UTF-8”" />
 <div>
 	{#if $page == "menu"}
 		<Menu />
@@ -39,7 +44,7 @@
 <style>
 	@import "https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css";
 	:global(body) {
-		background-color: aliceblue;
+		background-color: #DFF1ED;
 	}
 
 	:global(:root) {
@@ -78,4 +83,14 @@
   :global(button) {
 	  border-radius: 7px;
   }
+
+  :global(.btn-primary) {
+        color: white !important;
+        background-color: #73c3b1 !important;
+        border-color: #73c3b1 !important;
+    }
+
+	:global(.fixed-bottom) {
+		background-color:#a0c9c0!important;
+	}
 </style>
