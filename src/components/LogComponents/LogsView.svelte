@@ -3,6 +3,11 @@
     import { localLog } from "stores/stores.js";
     import { jsonToCSV, CSVDownloader } from "svelte-csv";
     import { BasicTable } from "csv2table";
+    import Footer from "components/Footer.svelte";
+    import Header from "components/Header.svelte";
+    import Button from "components/Utils/Button.svelte";
+    import MenuButton from "components/Utils/MenuButton.svelte";
+    import { Col } from "sveltestrap";
     let logs_ids = Object.keys($localLog).reverse();
     let showTableById = {};
     let showDataById = {};
@@ -98,22 +103,12 @@
     }
 </script>
 
-<center><h1>Local Logs</h1></center>
+<center><Header title="Local Logs" /></center>
 <div>
     <!-- <div>
         <BasicTable csv={showAllTables()} csvColumnDelimiter="," />
     </div> -->
-    <center
-        ><button on:click={() => moveToPage("menu")}>Go Back</button>
-        <CSVDownloader
-            data={parseLogsToJSON()}
-            filename={filename()}
-            bom={true}
-            type={"button"}
-        >
-            Download All Data in CSV
-        </CSVDownloader></center
-    >
+    <center />
     {#each logs_ids as id}
         <div class="color">
             Test #{id}
@@ -145,6 +140,24 @@
     >
 </div>
 
+<Footer rows="2">
+    <Col>
+        <MenuButton />
+    </Col>
+    <Col>
+        <div class="parent">
+            <CSVDownloader
+                data={parseLogsToJSON()}
+                filename={filename()}
+                bom={true}
+                type={"link"}
+            >
+                <Button>Download All Data in CSV</Button>
+            </CSVDownloader>
+        </div>
+    </Col>
+</Footer>
+
 <style>
     .color {
         background-color: #a0c9c0;
@@ -153,6 +166,7 @@
         margin-left: 10%;
         margin-right: 10%;
         margin-top: 5%;
+        border-radius: 10px;
     }
 
     .toggle-buttons {

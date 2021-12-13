@@ -1,8 +1,12 @@
 <script>
     import Link from "components/Utils/Link.svelte";
+    import Button from "components/Utils/Button.svelte";
+    import MenuButton from "components/Utils/MenuButton.svelte";
+    import Footer from "components/Footer.svelte";
     import { localCards } from "stores/stores.js";
     import EmojiSelector from "svelte-emoji-selector";
     import Card from "./Card.svelte";
+    import { Col } from "sveltestrap";
     export let createNew = false;
     export let width = 100;
     export let height = 100;
@@ -104,9 +108,12 @@
         <h1>Card Creator</h1>
         {#if !cardType}
             <div>Select the type of card to create</div>
-            <button on:click={() => (cardType = "imageCard")}>Emoji Card</button
+            <Button on:click={() => (cardType = "imageCard")}
+                ><p class="footer-text-size">Emoji Card</p></Button
             >
-            <button on:click={() => (cardType = "textCard")}>Text Card</button>
+            <Button on:click={() => (cardType = "textCard")}
+                ><p class="footer-text-size">Text Card</p></Button
+            >
         {:else if cardType == "imageCard"}
             <div class="instructions">Choose an Emoji or put url</div>
             <div class="align">
@@ -213,9 +220,10 @@
                 {/if}
             </div>
         {/if}
-        <Link to="test_creator"
-            ><button class="button-style">Go back</button></Link
-        >
+        <Footer rows={1}>
+            <!-- <Col><ButtonLink path="menu">Back</ButtonLink></Col> -->
+            <Col><MenuButton /></Col>
+        </Footer>
     {:else}
         <Link to="new_card"
             ><button class="new-card-button">New card</button></Link

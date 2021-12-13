@@ -1,8 +1,9 @@
 <script>
     import TestDisplayer from "./TestDisplayer.svelte";
-    import Link from "components/Utils/Link.svelte";
-    import { moveToPage } from "utils/navigator.js";
-    import { Navbar } from "sveltestrap";
+    import MenuButton from "components/Utils/MenuButton.svelte";
+    import ButtonLink from "components/Utils/ButtonLink.svelte";
+    import Footer from "components/Footer.svelte";
+    import { Col } from "sveltestrap";
 </script>
 
 <center><h1>Select a Test to start</h1></center>
@@ -12,13 +13,11 @@
     </div>
 </center>
 
-<footer class="fixed-bottom">
-    <Navbar>
-        <button class="col-sm-6" on:click={() => moveToPage("menu")}
-            >Go Back</button
-        >
-        <button class="col-sm-6">
-            <Link to="card_selection">Start selected test</Link>
-        </button>
-    </Navbar>
-</footer>
+<Footer rows="2">
+    <Col>
+        <MenuButton />
+    </Col>
+    <Col>
+        <ButtonLink path="card_selection" contentType="text">Start</ButtonLink>
+    </Col>
+</Footer>

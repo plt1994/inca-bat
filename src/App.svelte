@@ -9,6 +9,12 @@
 	import TestCreator from "components/Games/VoiceToImageTest/TestCreator.svelte";
 	import CardCreator from "components/CardComponents/CardCreator.svelte";
 	import { page } from "stores/stores.js";
+
+	$: notneek = window.neek;
+
+	window.neek.update = function () {
+		notneek = notneek;
+	};
 </script>
 
 <meta name="viewport" content="width=device-width, user-scalable=no" />
@@ -92,5 +98,26 @@
 
 	:global(.fixed-bottom) {
 		background-color:#a0c9c0!important;
+	}
+
+	:global(.icon-button) {
+        font-size: 10vw !important;
+        color: teal !important;;
+    }
+
+	:global(.footer-text-size) {
+		font-size: min(10vh, 8vw) !important;
+	}
+
+	:global(.no-margin) {
+        margin: 0% !important;
+    }
+
+    :global(.dark-border) {
+        border-color: #002a1f;
+    }
+
+	:global(span) {
+        text-decoration: none !important;
 	}
 </style>

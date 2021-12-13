@@ -20,7 +20,7 @@
     "svelte-bootstrap-icons": "^1.7.0"
   },
   "dependencies": {
-    "bootstrap-icons": "^1.7.0",
+    "bootstrap-icons": "^1.7.2",
     "csv2table": "^0.1.2",
     "sirv-cli": "^1.0.0",
     "svelte-csv": "^1.2.0",

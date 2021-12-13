@@ -3,8 +3,9 @@
     import SettingsOption from "./SettingsOption.svelte";
     import Header from "components/Header.svelte";
     import Footer from "components/Footer.svelte";
+    import ButtonLink from "components/Utils/ButtonLink.svelte";
     import { longpress } from "utils/longpress.js";
-    import { Col } from "sveltestrap";
+    import { Col, Row } from "sveltestrap";
     import { ArrowRightShort, ArrowLeftShort } from "svelte-bootstrap-icons";
     import {
         nOfRepetitions,
@@ -41,6 +42,7 @@
         "teal",
         "blue",
     ];
+    let footerButtonsFontSize = "min(10vh, 8vw)";
     function increment(option, max, step = 1) {
         option.update((n) => {
             if (n >= max) {
@@ -254,14 +256,30 @@
     <br />
 </div>
 
-<Footer>
-    <Col xs="auto"><button><Link to="menu">Go Back</Link> </button></Col>
-    <Col xs="auto">
-        <center
-            ><button class="color"
-                ><Link to="preview">Test Preview</Link>
-            </button></center
+<Footer rows="2">
+    <Col>
+        <ButtonLink
+            path="menu"
+            fontSize={footerButtonsFontSize}
+            contentType="icon"
         >
+            <i class="fa fa-home" />
+        </ButtonLink>
+    </Col>
+
+    <Col>
+        <ButtonLink
+            path="preview"
+            fontSize={footerButtonsFontSize}
+            contentType="text"
+        >
+            Preview
+        </ButtonLink>
+        <!-- <button class="btn d-block w-100 dark-border"
+                ><Link to="preview"
+                    ><p class="footer-text-size no-margin">Preview</p></Link
+                >
+            </button> -->
     </Col>
 </Footer>
 
@@ -272,6 +290,7 @@
     }
     .color {
         background-color: #a0c9c0;
+        border-color: #a0c9c0;
         display: grid;
         place-items: center;
         margin-left: 10%;

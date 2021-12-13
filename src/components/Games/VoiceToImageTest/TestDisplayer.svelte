@@ -2,8 +2,10 @@
     import { selectedTest } from "stores/stores.js";
     import Card from "components/CardComponents/Card.svelte";
     import { getTests, getCard, getTest } from "controller/controller.js";
+    import { Col, Row } from "sveltestrap";
     let tests = getTests();
     let sounds = {};
+    let cardPreviewWidth = 100;
     function playSound(card) {
         if (!sounds[card.cardId]) {
             let soundLocation = card.soundSrc;
@@ -27,33 +29,61 @@
 <!-- display selected test details -->
 <div class="color">
     <div class="buttonclass">
-        <p>Test name: {getTest($selectedTest).name}</p>
-        <p>Test cards:</p>
+        <br />
         <div class="cards-preview">
-            {#each getTest($selectedTest).cards as card}
-                <div class="card-preview" on:click={() => playSound(card)}>
-                    <p>{getCard(card.cardId).cardName}</p>
-                    <div id={card.cardId}>
-                        <Card
-                            testCard={card}
-                            width={100}
-                            height={100}
-                            preview="true"
-                        />
-                    </div>
-                </div>
-            {/each}
+            <Row
+                cols={Math.min(
+                    Math.floor(window.screen.width / cardPreviewWidth),
+                    getTest($selectedTest).cards.length
+                )}
+            >
+                {#each getTest($selectedTest).cards as card}
+                    <Col>
+                        <div
+                            class="card-preview"
+                            on:click={() => playSound(card)}
+                        >
+                            <p class="card-name-text">
+                                {getCard(card.cardId).cardName}
+                            </p>
+                            <div id={card.cardId}>
+                                <Card
+                                    testCard={card}
+                                    width={cardPreviewWidth}
+                                    height={cardPreviewWidth}
+                                    preview="true"
+                                />
+                            </div>
+                        </div>
+                    </Col>
+                {/each}
+            </Row>
         </div>
+        <br /><br /><br /><br /><br /><br />
     </div>
 </div>
 
 <style>
+    .card-name-text {
+        color: white;
+        font-weight: bolder;
+        display: inline;
+        font-variant: all-small-caps;
+    }
     .card-preview {
-        background-color: #fff;
+        background-color: teal;
+        border-radius: 10px;
     }
     .cards-preview {
         display: flex;
         flex-direction: row;
         justify-content: center;
+    }
+
+    select {
+        word-wrap: initial;
+        background-color: #a0c9c0;
+        text-align: center;
+        border-radius: 10px;
     }
 </style>

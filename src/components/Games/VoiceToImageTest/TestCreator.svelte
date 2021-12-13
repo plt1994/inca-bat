@@ -2,9 +2,13 @@
     import { getCards } from "controller/controller.js";
     import CardCreator from "components/CardComponents/CardCreator.svelte";
     import { localTests, username } from "stores/stores.js";
-    import Link from "components/Utils/Link.svelte";
+    import MenuButton from "components/Utils/MenuButton.svelte";
     import Card from "components/CardComponents/Card.svelte";
-    import { Row } from "sveltestrap";
+    import Footer from "components/Footer.svelte";
+    import Header from "components/Header.svelte";
+    import ButtonLink from "components/Utils/ButtonLink.svelte";
+    import Button from "components/Utils/Button.svelte";
+    import { Col, Row } from "sveltestrap";
     let cards = getCards();
     let selectedCards = [];
     const steps = ["zero", "one", "two", "three"];
@@ -14,6 +18,7 @@
     let msgForTest = {};
     let testname;
     const INCA_BAT_BACKEND_URL = "https://buho.dcc.uchile.cl/inca-bat-api";
+    let footerButtonsFontSize = "min(10vh, 8vw)";
     function nextStep() {
         if (selectedCards.length < 1 && step == 0) {
             return;
@@ -104,7 +109,7 @@
 </script>
 
 <center>
-    <div>Test Creator</div>
+    <Header title="Test Creator" />
     {#if $username == "Default"}
         <div>Please set up the Teacher Name on Settings</div>
     {:else if done}
@@ -161,26 +166,41 @@
         <input bind:value={testname} />
     {:else if steps[step] == "three"}
         Click on "Create" button to create test
-        <button id="create-button" on:click={buildTest}>Create</button>
     {/if}
-
-    {#if !done}
-        <div>
+    <br /><br /><br /> <br /> <br /> <br />
+    <Footer>
+        <Col>
             {#if step != 0}
-                <button id="back-button" on:click={() => stepBack()}
-                    >back</button
+                <Button on:click={() => stepBack()}
+                    ><p class="footer-text-size">Back</p></Button
                 >
+            {:else}
+                <ButtonLink
+                    path="menu"
+                    fontSize={footerButtonsFontSize}
+                    contentType="text"
+                    >Back
+                </ButtonLink>
             {/if}
-            {#if step != 3 && $username != "Default"}
-                <button id="next-button" on:click={() => nextStep()}
-                    >Next</button
-                >
+        </Col>
+        <Col>
+            <MenuButton />
+        </Col>
+        <Col>
+            {#if !done}
+                {#if step != 3 && $username != "Default"}
+                    <Button on:click={() => nextStep()}
+                        ><p class="footer-text-size">Next</p></Button
+                    >
+                {/if}
+                {#if steps[step] == "three"}
+                    <Button on:click={buildTest}
+                        ><p class="footer-text-size">Create</p></Button
+                    >
+                {/if}
             {/if}
-        </div>
-    {/if}
-    <div>
-        <Link to="menu"><button>Menu</button></Link>
-    </div>
+        </Col>
+    </Footer>
 </center>
 
 <style>

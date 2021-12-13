@@ -8,6 +8,6 @@
 
 <style>
     h1 {
-        font-size: 12vw;
+        font-size: min(15vh, 11vw);
     }
 </style>
