@@ -36,8 +36,9 @@
                         path="test_creator"
                         fontSize={menuButtonFontSize}>My Tests</ButtonLink
                     >
-                    <ButtonLink path="new_card" fontSize={menuButtonFontSize}
-                        >My Cards</ButtonLink
+                    <ButtonLink
+                        path="card_manager"
+                        fontSize={menuButtonFontSize}>My Cards</ButtonLink
                     >
                 </div>
             </Col>

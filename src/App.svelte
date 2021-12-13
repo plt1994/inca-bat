@@ -8,6 +8,7 @@
 	import LogsView from "components/LogComponents/LogsView.svelte";
 	import TestCreator from "components/Games/VoiceToImageTest/TestCreator.svelte";
 	import CardCreator from "components/CardComponents/CardCreator.svelte";
+	import CardsList from "components/CardComponents/CardsList.svelte";
 	import { page } from "stores/stores.js";
 
 	$: notneek = window.neek;
@@ -42,6 +43,8 @@
 		<TestCreator />
 	{:else if $page == "new_card"}
 		<CardCreator createNew={true} />
+	{:else if $page == "card_manager"}
+		<CardsList />
 	{:else}
 		<div><p>404: not found</p></div>
 	{/if}

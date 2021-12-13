@@ -4,6 +4,7 @@
     import MenuButton from "components/Utils/MenuButton.svelte";
     import Footer from "components/Footer.svelte";
     import { localCards } from "stores/stores.js";
+    import { getLocalCards } from "controller/controller.js";
     import EmojiSelector from "svelte-emoji-selector";
     import Card from "./Card.svelte";
     import { Col } from "sveltestrap";
@@ -43,29 +44,36 @@
     }
     function addNewTextCard() {
         let newId = 0;
-        for (let i = 0; i < $localCards.length; i++) {
+        for (let i = 0; i < getLocalCards().length; i++) {
             let card = $localCards[i];
             if (newId <= card.localId) {
                 newId = card.localId + 1;
             }
         }
+        let cardObjectDetails = {
+            text: textCardObject.details.text,
+            size_r: textCardObject.details.size_r,
+            x: textCardObject.details.x,
+            y: textCardObject.details.y,
+            fontFamily: textCardObject.details.fontFamily,
+        };
         let newCardData = {
             localId: newId,
             id: `local-${newId}`,
             cardName: cardName,
             cardType: "textCard",
-            details: textCardObject.details,
+            details: cardObjectDetails,
         };
-        let newLocalCards = $localCards;
+        let newLocalCards = getLocalCards();
         newLocalCards.push(newCardData);
-        isLoaded = false;
+        cardName = "";
         localCards.update(() => {
             return newLocalCards;
         });
     }
     function addNewCard() {
         let newId = 0;
-        for (let i = 0; i < $localCards.length; i++) {
+        for (let i = 0; i < getLocalCards().length; i++) {
             let card = $localCards[i];
             if (newId <= card.localId) {
                 newId = card.localId + 1;
@@ -80,12 +88,12 @@
                 imgSrc: imgSrc,
             },
         };
-        let newLocalCards = $localCards;
+        let newLocalCards = getLocalCards();
         newLocalCards.push(newCardData);
-        isLoaded = false;
         localCards.update(() => {
             return newLocalCards;
         });
+        isLoaded = false;
     }
     function emojiUnicode(emoji) {
         var comp;
@@ -212,10 +220,8 @@
             <Card cardObject={textCardObject} {width} {height} />
             <div class="align">
                 {#if textCardObject.details.text && cardName}
-                    <Link to="test_creator"
-                        ><button on:click={addNewTextCard} class="button-style"
-                            >Save!</button
-                        ></Link
+                    <button on:click={addNewTextCard} class="button-style"
+                        >Save!</button
                     >
                 {/if}
             </div>
