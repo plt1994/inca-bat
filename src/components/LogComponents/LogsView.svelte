@@ -114,12 +114,12 @@
             Test #{id}
             <p>{$localLog[id][1]}</p>
             <div class="toggle-buttons">
-                <button on:click={() => toggleTable(id)}
-                    >{showTableById[id] ? "Hide" : "Show"} Summary Table</button
-                >
-                <button on:click={() => toggleData(id)}
-                    >{showDataById[id] ? "Hide" : "Show"} Summary Data</button
-                >
+                <Button on:click={() => toggleTable(id)}
+                    >{showTableById[id] ? "Hide" : "Show"} Summary Table
+                </Button>
+                <Button on:click={() => toggleData(id)}>
+                    {showDataById[id] ? "Hide" : "Show"} Summary Data
+                </Button>
             </div>
             {#if showTableById[id]}
                 <div>
@@ -136,8 +136,6 @@
             {/if}
         </div>
     {/each}
-    <center><button on:click={() => moveToPage("menu")}>Go Back</button></center
-    >
 </div>
 
 <Footer rows="2">
@@ -161,11 +159,15 @@
 <style>
     .color {
         background-color: #a0c9c0;
-        display: grid;
         place-items: center;
         margin-left: 10%;
         margin-right: 10%;
         margin-top: 5%;
+        text-align: center;
+        padding-left: 3vw;
+        padding-right: 3vw;
+        padding-top: 1vh;
+        padding-bottom: 1vh;
         border-radius: 10px;
     }
 

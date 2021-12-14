@@ -47,6 +47,7 @@ export const page = writable("menu")
 export const bgColor = writable(storedBackgroundColor || "white")
 export const cardBgColor = writable(storedCardBackgroundColor || "white")
 export const timeFeedbackDelay = writable(1500)
+export const visitedViewsStack = writable([])
 
 //local Tests
 export const localTests = writable(JSON.parse(storedLocalTests || "[]") || [{

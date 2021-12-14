@@ -101,7 +101,7 @@
         </div>
     </div>
     <Footer rows={3}>
-        <Col><ButtonLink path="menu">Back</ButtonLink></Col>
+        <Col><ButtonLink path="back">Back</ButtonLink></Col>
         <Col><MenuButton /></Col>
         <Col
             ><Button on:click={deleteSelectedCards} contentType="icon"

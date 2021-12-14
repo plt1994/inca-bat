@@ -123,4 +123,8 @@
 	:global(span) {
         text-decoration: none !important;
 	}
+
+	:global(i){
+		text-shadow: 1px 1px 0 rgb(0, 116, 116);
+	}
 </style>

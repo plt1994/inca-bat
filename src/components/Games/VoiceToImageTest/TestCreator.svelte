@@ -175,7 +175,7 @@
                 >
             {:else}
                 <ButtonLink
-                    path="menu"
+                    path="back"
                     fontSize={footerButtonsFontSize}
                     contentType="text"
                     >Back

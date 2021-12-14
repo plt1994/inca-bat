@@ -1,8 +1,10 @@
 <script>
     import Link from "components/Utils/Link.svelte";
     import Button from "components/Utils/Button.svelte";
+    import ButtonLink from "components/Utils/ButtonLink.svelte";
     import MenuButton from "components/Utils/MenuButton.svelte";
     import Footer from "components/Footer.svelte";
+    import Header from "components/Header.svelte";
     import { localCards } from "stores/stores.js";
     import { getLocalCards } from "controller/controller.js";
     import EmojiSelector from "svelte-emoji-selector";
@@ -113,15 +115,20 @@
 
 <center>
     {#if createNew}
-        <h1>Card Creator</h1>
+        <Header title="Card Creator" />
         {#if !cardType}
             <div>Select the type of card to create</div>
-            <Button on:click={() => (cardType = "imageCard")}
-                ><p class="footer-text-size">Emoji Card</p></Button
-            >
-            <Button on:click={() => (cardType = "textCard")}
-                ><p class="footer-text-size">Text Card</p></Button
-            >
+            <div class="selection-buttons">
+                <Button on:click={() => (cardType = "imageCard")}
+                    ><p class="footer-text-size">Emoji Card</p></Button
+                >
+                <Button on:click={() => (cardType = "textCard")}
+                    ><p class="footer-text-size">Text Card</p></Button
+                >
+                <!-- <Button on:click={() => (cardType = "imageCard")}
+                    ><p class="footer-text-size">Image Card</p></Button
+                > -->
+            </div>
         {:else if cardType == "imageCard"}
             <div class="instructions">Choose an Emoji or put url</div>
             <div class="align">
@@ -226,8 +233,8 @@
                 {/if}
             </div>
         {/if}
-        <Footer rows={1}>
-            <!-- <Col><ButtonLink path="menu">Back</ButtonLink></Col> -->
+        <Footer rows={2}>
+            <Col><ButtonLink path="back">Back</ButtonLink></Col>
             <Col><MenuButton /></Col>
         </Footer>
     {:else}
@@ -263,5 +270,19 @@
         border-radius: 10px;
         margin: 0;
         border-color: black;
+    }
+
+    .selection-buttons {
+        place-items: center;
+        margin-left: 10%;
+        margin-right: 10%;
+        margin-top: 5%;
+        text-align: center;
+        padding-left: 3vw;
+        padding-right: 3vw;
+        padding-top: 1vh;
+        padding-bottom: 1vh;
+        height: 50vh;
+        display: grid;
     }
 </style>

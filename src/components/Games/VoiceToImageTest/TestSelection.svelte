@@ -3,11 +3,12 @@
     import MenuButton from "components/Utils/MenuButton.svelte";
     import ButtonLink from "components/Utils/ButtonLink.svelte";
     import Footer from "components/Footer.svelte";
+    import Header from "components/Header.svelte";
     import { Col } from "sveltestrap";
 </script>
 
-<center><h1>Select a Test to start</h1></center>
 <center>
+    <Header title="Select a Test" />
     <div class="color">
         <TestDisplayer />
     </div>

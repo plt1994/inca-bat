@@ -1,13 +1,11 @@
 <script>
-    import { page } from "stores/stores.js";
+    import { moveToPage } from "utils/navigator.js";
     export let to = "main";
-    export const moveToPage = () => {
-        page.update(() => {
-            return to;
-        });
+    const moveToPageLocal = () => {
+        moveToPage(to);
     };
 </script>
 
-<div on:click={moveToPage}>
+<div on:click={moveToPageLocal}>
     <slot />
 </div>

@@ -14,8 +14,7 @@
             </Col>
             <Col xs="8"><Header /></Col>
             <Col xs="2"
-                ><Link to="settings"
-                    ><i class="icon-button fa fa-gear fa-spin" /></Link
+                ><Link to="settings"><i class="icon-button fa fa-gear" /></Link
                 ></Col
             >
         </Row>
@@ -26,8 +25,7 @@
                 <div class="buttons">
                     <ButtonLink
                         path="test_selection"
-                        fontSize={menuButtonFontSize}
-                        >Sound To Image Test</ButtonLink
+                        fontSize={menuButtonFontSize}>Start Test</ButtonLink
                     >
                     <ButtonLink path="logs_view" fontSize={menuButtonFontSize}
                         >Local Logs</ButtonLink
@@ -47,7 +45,7 @@
         <Row
             ><Col xs="1" />
             <Col xs="10"
-                ><div class="color">
+                ><div class="collab">
                     In collaboration with <a
                         href="https://parrotkindergarten.com/"
                         target="_blank">Parrot Kindergarten</a
@@ -71,10 +69,15 @@
         display: grid;
     }
 
-    .color {
+    .collab {
         background-color: #a0c9c0;
-        display: grid;
         place-items: center;
-        margin-top: 10%;
+        margin-top: 7vh;
+        text-align: center;
+        padding-left: 3vw;
+        padding-right: 3vw;
+        padding-top: 1vh;
+        padding-bottom: 1vh;
+        border-radius: 10px;
     }
 </style>

@@ -1,11 +1,11 @@
 <script>
-    import Link from "components/Utils/Link.svelte";
     import SettingsOption from "./SettingsOption.svelte";
     import Header from "components/Header.svelte";
     import Footer from "components/Footer.svelte";
     import ButtonLink from "components/Utils/ButtonLink.svelte";
+    import MenuButton from "components/Utils/MenuButton.svelte";
     import { longpress } from "utils/longpress.js";
-    import { Col, Row } from "sveltestrap";
+    import { Col } from "sveltestrap";
     import { ArrowRightShort, ArrowLeftShort } from "svelte-bootstrap-icons";
     import {
         nOfRepetitions,
@@ -250,13 +250,7 @@
 
 <Footer rows="2">
     <Col>
-        <ButtonLink
-            path="menu"
-            fontSize={footerButtonsFontSize}
-            contentType="icon"
-        >
-            <i class="fa fa-home" />
-        </ButtonLink>
+        <MenuButton />
     </Col>
 
     <Col>
@@ -267,11 +261,6 @@
         >
             Preview
         </ButtonLink>
-        <!-- <button class="btn d-block w-100 dark-border"
-                ><Link to="preview"
-                    ><p class="footer-text-size no-margin">Preview</p></Link
-                >
-            </button> -->
     </Col>
 </Footer>
 
