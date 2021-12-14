@@ -3,6 +3,7 @@
     export let rows = "3";
 </script>
 
+<br /><br /><br /> <br /><br /><br />
 <footer class="fixed-bottom rounded">
     <Container fluid>
         <div class="margin-footer-buttons">

@@ -167,7 +167,6 @@
     {:else if steps[step] == "three"}
         Click on "Create" button to create test
     {/if}
-    <br /><br /><br /> <br /> <br /> <br />
     <Footer>
         <Col>
             {#if step != 0}

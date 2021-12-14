@@ -41,6 +41,9 @@
     function deleteSelectedCards() {
         usedCards = {};
         deletableIds = [];
+        if (selectedCards.length == 0) {
+            return;
+        }
         selectedCards.forEach((card) => {
             let testsUsingThisCard = verifyCardUsage(card.id);
             if (testsUsingThisCard.length) {
@@ -76,7 +79,7 @@
                 </div>
                 {#each cards as c}
                     <div class="card-box">
-                        <p>{c.cardName}</p>
+                        <p class="card-name-text">{c.cardName}</p>
                         <input
                             class="check-card"
                             type="checkbox"
@@ -150,6 +153,12 @@
 </center>
 
 <style>
+    .card-name-text {
+        color: white;
+        font-weight: bolder;
+        display: inline;
+        font-variant: all-small-caps;
+    }
     .bold {
         font-weight: bolder;
     }
@@ -170,5 +179,8 @@
         height: min-content;
         margin: auto;
         padding: 2px;
+        background-color: teal;
+        border-radius: 10px;
+        margin-bottom: 1vh;
     }
 </style>

@@ -59,7 +59,6 @@
                 {/each}
             </Row>
         </div>
-        <br /><br /><br /><br /><br /><br />
     </div>
 </div>
 
@@ -73,6 +72,9 @@
     .card-preview {
         background-color: teal;
         border-radius: 10px;
+        margin: auto;
+        margin-bottom: 1vh;
+        position: relative;
     }
     .cards-preview {
         display: flex;

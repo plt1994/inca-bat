@@ -247,14 +247,6 @@
         </div>
     </SettingsOption>
 </div>
-<div>
-    <br />
-    <br />
-    <br />
-    <br />
-    <br />
-    <br />
-</div>
 
 <Footer rows="2">
     <Col>
