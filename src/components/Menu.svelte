@@ -31,12 +31,12 @@
                         >Local Logs</ButtonLink
                     >
                     <ButtonLink
-                        path="test_creator"
-                        fontSize={menuButtonFontSize}>My Tests</ButtonLink
-                    >
-                    <ButtonLink
                         path="card_manager"
                         fontSize={menuButtonFontSize}>My Cards</ButtonLink
+                    >
+                    <ButtonLink
+                        path="test_manager"
+                        fontSize={menuButtonFontSize}>My Tests</ButtonLink
                     >
                 </div>
             </Col>

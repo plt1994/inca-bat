@@ -20,6 +20,10 @@ localCards.subscribe((value) => {
     localCardsValues = value;
 })
 
+localTests.subscribe((value) => {
+    localTestsValues = value;
+})
+
 export function getTests() {
     return allTests
 }
@@ -70,6 +74,10 @@ export function getLocalCards() {
     return localCardsValues;
 }
 
+export function getLocalTests() {
+    return localTestsValues;
+}
+
 export function verifyCardUsage(id) {
     let testsList = [];
     for (let i = 0; i < allTests.length; i++) {
@@ -88,5 +96,12 @@ export function deleteCard(id) {
     localCards.update((localCards) => {
         let newLocalCards = localCards.filter(item => item.id !== id)
         return newLocalCards;
+    });
+}
+
+export function deleteTest(id) {
+    localTests.update((localTests) => {
+        let newLocalTests = localTests.filter(item => item.id !== id)
+        return newLocalTests;
     });
 }

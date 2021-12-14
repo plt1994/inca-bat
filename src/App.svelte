@@ -3,6 +3,7 @@
 	import About from "components/About.svelte";
 	import CardSelection from "components/CardComponents/CardSelection.svelte";
 	import TestSelection from "components/Games/VoiceToImageTest/TestSelection.svelte";
+	import TestsList from "components/Games/VoiceToImageTest/TestsList.svelte";
 	import Menu from "components/Menu.svelte";
 	import Settings from "components/SettingComponents/Settings.svelte";
 	import LogsView from "components/LogComponents/LogsView.svelte";
@@ -45,6 +46,8 @@
 		<CardCreator createNew={true} />
 	{:else if $page == "card_manager"}
 		<CardsList />
+	{:else if $page == "test_manager"}
+		<TestsList />
 	{:else}
 		<div><p>404: not found</p></div>
 	{/if}

@@ -1,14 +1,14 @@
 <script>
     import { getCards } from "controller/controller.js";
     import CardCreator from "components/CardComponents/CardCreator.svelte";
-    import { localTests, username } from "stores/stores.js";
+    import { localTests, username, selectedTest } from "stores/stores.js";
     import MenuButton from "components/Utils/MenuButton.svelte";
     import Card from "components/CardComponents/Card.svelte";
     import Footer from "components/Footer.svelte";
     import Header from "components/Header.svelte";
     import ButtonLink from "components/Utils/ButtonLink.svelte";
     import Button from "components/Utils/Button.svelte";
-    import { Col, Row } from "sveltestrap";
+    import { Col, Row, Spinner } from "sveltestrap";
     let cards = getCards();
     let selectedCards = [];
     const steps = ["zero", "one", "two", "three"];
@@ -104,6 +104,9 @@
             return newLocalTests;
         });
         done = true;
+        selectedTest.update(() => {
+            return `local-${newTestId}`;
+        });
         return newTest;
     }
 </script>
@@ -114,11 +117,16 @@
         <div>Please set up the Teacher Name on Settings</div>
     {:else if done}
         <div>
-            Your test was succesfuly created, click on Menu to leave the Test
-            Creator
+            Your test was succesfuly created!, select "Start" to try your new
+            test, or select "Finish" to leave the test creator.
         </div>
+        <ButtonLink path="card_selection">Start</ButtonLink>
+        <ButtonLink path="back">Finish</ButtonLink>
     {:else if loading}
-        <div>Wait few seconds while your test is creating</div>
+        <div>
+            <p>Wait few seconds while your test is creating</p>
+            <Spinner color="success" />
+        </div>
     {:else if steps[step] == "zero"}
         <div>1. Select any number of cards to put in the test</div>
         <div>
@@ -162,7 +170,7 @@
             {/each}
         </div>
     {:else if steps[step] == "two"}
-        <div>4. Add a name for the test and save</div>
+        <div>4. Add a name for the test</div>
         <input bind:value={testname} />
     {:else if steps[step] == "three"}
         Click on "Create" button to create test
