@@ -271,12 +271,16 @@
     }
     .color {
         background-color: #a0c9c0;
-        border-color: #a0c9c0;
-        display: grid;
         place-items: center;
         margin-left: 10%;
         margin-right: 10%;
         margin-top: 5%;
+        text-align: center;
+        padding-left: 3vw;
+        padding-right: 3vw;
+        padding-top: 1vh;
+        padding-bottom: 1vh;
+        border-radius: 10px;
     }
     input {
         text-align: center;
